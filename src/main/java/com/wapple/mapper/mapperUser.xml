@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wapple.mapper.UserDao">
+	<select id="validate" resultType="int">
+          SELECT COUNT(1) FROM  t_wap_user
+          <where>
+          <if test='type=="username"'>
+              username=#{value}
+          </if>
+          <if test='type=="email"'>
+              and email=#{value}
+          </if>
+            <if test='type=="phone"'>
+              and phone=#{value}
+          </if>
+          </where>
+	</select>
+
+
+</mapper>

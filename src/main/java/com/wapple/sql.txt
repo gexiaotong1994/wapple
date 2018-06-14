@@ -1,0 +1,18 @@
+CREATE TABLE t_wap_user(
+   id INT  AUTO_INCREMENT,
+   username VARCHAR(100),
+   `password` VARCHAR(100),
+   username_cn VARCHAR(100),
+   email VARCHAR(100),
+   phone VARCHAR(100),
+   question VARCHAR(100),
+   answer VARCHAR(100),
+   role TINYINT(3) DEFAULT 0,
+   `status` TINYINT(3) DEFAULT -1,
+   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY(id),
+   KEY(username)
+ )
+ 
+ 

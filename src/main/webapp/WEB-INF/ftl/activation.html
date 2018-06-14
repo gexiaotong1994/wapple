@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WAPPLE激活</title>
+<#include "public/head.html" />
+</head>
+<body>
+	<!--header-->
+	<#include "public/menu.html" />
+	<div class="container">
+		<div class="account">
+			<h1>验证激活wapplid</h1>
+			<div class="account-pass">
+				<div class="col-md-8 account-top">
+					
+						<div>
+							<span>请输入验证码</span> <input type="text" id="yzm">
+						</div>
+						<input type="submit"  value="确定" id="sub"> 
+					</form>
+				</div>
+			
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+	</div>
+	<#include "public/footer.html" />
+	<script type="text/javascript">
+	   $("#sub").click(function(){
+		   $.post(window.location.href,{"yamVal":$("#yzm").val()},function(json){
+			   if(json.success){
+				   window.location.href="/wappleid/register-success/"+json.data+"/"; 
+			   }else{
+				   alert(json.msg);
+			   }
+		   })
+	   });
+	</script>
+</body>
+</html>
