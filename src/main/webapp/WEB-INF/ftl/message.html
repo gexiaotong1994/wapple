@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WAPPLE</title>
+<#include "public/head.html" />
+</head>
+<body>
+	<!--header-->
+	<#include "public/menu.html" />
+	<div class="container">
+		<div class="account">
+			<h3>${username} 注册成功</h3>
+			<div class="account-pass">
+				<div class="col-md-8 account-top">
+					<h3>将在<span id="miao">10</span>秒后跳转到登录页面</h3>
+				</div>
+			
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+	</div>
+	<#include "public/footer.html" />
+	<script type="text/javascript">
+	  function time_zo(){
+		  var time=document.getElementById("miao");
+		  var timeInt=parseInt(time.innerHTML);//初始化获取住任务的描述
+		  if(timeInt<=0){
+			  window.location.href="/myaccount/signin";
+		  }else{
+			  timeInt--;
+			   time.innerHTML=timeInt;
+			   setTimeout("time_zo()",1000);
+			   
+		  }
+	  }
+	  time_zo();
+	</script>
+</body>
+</html>

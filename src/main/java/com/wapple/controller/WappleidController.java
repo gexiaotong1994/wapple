@@ -6,6 +6,7 @@ import javax.xml.bind.ValidationException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,13 @@ public class WappleidController {
 	public String forgot() {
 
 		return "forgot";
+	}
+	
+	
+	@RequestMapping("/register-success/{username}/")
+	public String regSuccess(@PathVariable("username") String username,Model model) {
+	    model.addAttribute("username", username);
+		return "message";
 	}
 
 	
@@ -72,7 +80,9 @@ public class WappleidController {
 		if (!StringUtils.equals(yamVal, redisVal)) {
 			return Json.fail("验证码错误");
 		}
-		return Json.success();
+		return Json.success(username);
 	}
+	
+	
 
 }
