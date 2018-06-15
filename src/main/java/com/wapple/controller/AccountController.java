@@ -24,6 +24,9 @@ public class AccountController {
 	    log.info("json");
 		return "account/index";
 	}
+	
+	
+	
 	                  
 	
 

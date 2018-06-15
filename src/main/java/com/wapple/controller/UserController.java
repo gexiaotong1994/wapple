@@ -46,7 +46,10 @@ public class UserController {
 
 	@RequestMapping("register")
 	public ModelAndView register(User user) {
+		
+		userService.register(user);
 		Map<String, Object> map = Maps.newHashMap();
+		
 		map.put("username", user.getUsername());
 		map.put("type",Const.PHONE);
 		map.put("value",user.getPhone());

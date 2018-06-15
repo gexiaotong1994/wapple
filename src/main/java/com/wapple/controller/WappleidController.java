@@ -38,7 +38,7 @@ public class WappleidController {
 		return "forgot";
 	}
 
-	//
+	
 
 	@RequestMapping("password/verify/security-question")
 	public String securityQuestion(String wappleid) {
