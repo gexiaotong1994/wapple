@@ -1,5 +1,8 @@
 package com.wapple.service.impl;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.apache.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +11,18 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import com.wapple.common.Const;
 import com.wapple.common.Json;
+import com.wapple.enums.CookieEnum;
+import com.wapple.enums.RedisEnum;
+import com.wapple.enums.UserStatusEnum;
 import com.wapple.mapper.UserDao;
 import com.wapple.exception.VaildateException;
 import com.wapple.mapper.UserMapper;
 import com.wapple.pojo.User;
 import com.wapple.service.UserService;
+import com.wapple.util.CookieUtil;
+import com.wapple.util.JsonUtil;
 import com.wapple.util.MD5Util;
+import com.wapple.util.RedisUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +51,20 @@ public class UserServiceImpl implements UserService {
 			return Json.fail("密码错误 请检查");
 		}
 
-		return Json.success(user);
+		if (user.getStatus() == UserStatusEnum.SUC.getCode()) {
+			return Json.success(user);
+		}
+		
+		if (user.getStatus()==UserStatusEnum.NOT_TOKE.getCode()) {
+			return Json.fail(UserStatusEnum.NOT_TOKE.getValue());
+		}
+		
+		if (user.getStatus()==UserStatusEnum.EXT_JIN.getCode()) {
+			return Json.fail(UserStatusEnum.EXT_JIN.getValue());
+		}
+		
+
+		return Json.fail("未知错误 登录失败");
 	}
 
 	public boolean validate(String value, String type) {
@@ -73,6 +95,21 @@ public class UserServiceImpl implements UserService {
 			throw new VaildateException("邮箱重复 请更换");
 		}
 
+	}
+
+	@Override
+	public User loginUser(HttpServletRequest request) {
+		String redisKey = CookieUtil.read(request, CookieEnum.LOGIN.getKey());
+		if (StringUtils.isBlank(redisKey)) {
+			return null;
+		}
+		String redisVal = RedisUtil.get(redisKey);
+		if (StringUtils.isBlank(redisVal)) {
+			return null;
+		}
+		RedisUtil.expire(redisKey, RedisEnum.USER_LOGIN.getExTime());
+
+		return JsonUtil.stringToObj(redisVal, User.class);
 	}
 
 }

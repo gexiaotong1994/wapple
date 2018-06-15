@@ -44,16 +44,16 @@ public class UserController {
 
 	@RequestMapping("login")
 	@ResponseBody
-	public Json<User> login(String username, String password,HttpServletResponse response) {
+	public Json<User> login(String username, String password, HttpServletResponse response) {
 		Json<User> json = userService.login(username, password);
 		if (json.isSuccess()) {
 			User user = json.getData();
 			String userStr = JsonUtil.objToString(user);
-			RedisEnum redisLogin=RedisEnum.USER_LOGIN;
-			String redisKey=redisLogin.getKey()+username+System.currentTimeMillis();
-			RedisUtil.setEx(redisKey,userStr,redisLogin.getExTime());
-			//将rediskey写入cookie中 
-		    CookieUtil.write(response,CookieEnum.LOGIN.getKey(), redisKey,CookieEnum.LOGIN.getExTime());
+			RedisEnum redisLogin = RedisEnum.USER_LOGIN;
+			String redisKey = redisLogin.getKey() + username + System.currentTimeMillis();
+			RedisUtil.setEx(redisKey, userStr, redisLogin.getExTime());
+			// 将rediskey写入cookie中
+			CookieUtil.write(response, CookieEnum.LOGIN.getKey(), redisKey, CookieEnum.LOGIN.getExTime());
 		}
 		return json;
 	}

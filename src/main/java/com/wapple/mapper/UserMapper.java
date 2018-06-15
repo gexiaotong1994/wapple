@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.wapple.pojo.User;
 
@@ -28,6 +29,11 @@ public interface UserMapper {
 	@Insert("INSERT INTO t_wap_user(`username`,`password`,`username_cn`,email,phone,question,answer) "
 			+ "VALUE(#{username},#{password},#{usernameCn},#{email},#{phone},#{question},#{answer})")
 	int insertUser(User user);
+	
+	
+	
+	@Update("update t_wap_user set status=#{status} where username=#{username}")
+	int updateUserStatus(@Param("status") int status,@Param("username") String username);
 	
 	
 	

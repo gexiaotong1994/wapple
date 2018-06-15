@@ -1,5 +1,7 @@
 package com.wapple.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.wapple.common.Json;
 import com.wapple.pojo.User;
 
@@ -34,6 +36,14 @@ public interface UserService {
 	
 	
 	
+	
+	/**
+	 * 获取登录用户  
+	 * null 表示未登录
+	 * @param request
+	 * @return
+	 */
+	User loginUser(HttpServletRequest request);
 	
 	
 }
