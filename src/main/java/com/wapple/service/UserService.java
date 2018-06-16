@@ -1,5 +1,7 @@
 package com.wapple.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.wapple.common.Json;
@@ -44,6 +46,18 @@ public interface UserService {
 	 * @return
 	 */
 	User loginUser(HttpServletRequest request);
+	
+	
+	
+	/**
+	 * userList
+	 * @return
+	 */
+	List<User> userList();
+	
+	
+	
+	
 	
 	
 }

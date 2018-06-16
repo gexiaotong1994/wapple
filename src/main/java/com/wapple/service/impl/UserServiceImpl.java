@@ -1,5 +1,7 @@
 package com.wapple.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
@@ -110,6 +112,12 @@ public class UserServiceImpl implements UserService {
 		RedisUtil.expire(redisKey, RedisEnum.USER_LOGIN.getExTime());
 
 		return JsonUtil.stringToObj(redisVal, User.class);
+	}
+
+	@Override
+	public List<User> userList() {
+		
+		return userMapper.queryUserList();
 	}
 
 }

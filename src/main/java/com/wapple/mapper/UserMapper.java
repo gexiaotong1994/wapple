@@ -1,5 +1,7 @@
 package com.wapple.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -34,6 +36,10 @@ public interface UserMapper {
 	
 	@Update("update t_wap_user set status=#{status} where username=#{username}")
 	int updateUserStatus(@Param("status") int status,@Param("username") String username);
+	
+	@ResultMap(value="userMapperMap")
+	@Select("  SELECT u.* FROM t_wap_user u")
+	List<User> queryUserList();
 	
 	
 	
