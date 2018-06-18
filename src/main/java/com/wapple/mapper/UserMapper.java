@@ -3,6 +3,7 @@ package com.wapple.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -38,8 +39,25 @@ public interface UserMapper {
 	int updateUserStatus(@Param("status") int status,@Param("username") String username);
 	
 	@ResultMap(value="userMapperMap")
-	@Select("  SELECT u.* FROM t_wap_user u")
+	@Select("SELECT u.`id`,u.`username`,u.`username_cn`,u.`email`,u.`phone`,u.`status`,u.`create_time` FROM t_wap_user u")
 	List<User> queryUserList();
+	
+	@ResultMap(value="userMapperMap")
+	@Select("SELECT u.* FROM t_wap_user u where u.id=#{id}")
+	User queryUserById(@Param("id")int id);
+	
+	
+	@Select("select question from t_wap_user where username=#{username}")
+	String queryQuestionByUsername(String username);
+	
+	@Select("select count(1) from t_wap_user where username=#{username} and question=#{question} and answer=#{answer}")
+	int queryAnswerQuestionUsername(@Param("answer")String answer,@Param("question")String question,@Param("username")String username);
+	
+	
+	
+	
+	
+	
 	
 	
 	

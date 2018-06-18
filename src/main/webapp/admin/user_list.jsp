@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>后台主页</title>
+<title>用户列表</title>
 <%@include file="/admin/public/head.jsp"%>
 
 
@@ -27,7 +27,6 @@
                            <tbody>
                               <tr>
                                  <th>用户名</th>
-                                 
                                  <th>中文名</th>
                                  <th> 注册时间</th>
                                  <th>邮箱</th>
@@ -37,11 +36,12 @@
                               </tr>
                               <c:forEach items="${userList}" var="user">
                               <tr>
-                                 <td><a href="user_detail.action?userId=${user.id}">${user.username }</a></td>
+                                 <td><a href="detail.action?userId=${user.id}">${user.username }</a></td>
                                  <td>${user.usernameCn }</td>
                                  <td>${user.createTime }</td>
                                  <td>${user.email }</td>
                                  <td>${user.phone }</td>
+                                 <td>${user.statusMsg }</td>
                                  <td>
                                   <div class="btn-group">
                                       <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>

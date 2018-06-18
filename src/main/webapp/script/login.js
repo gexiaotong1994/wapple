@@ -5,8 +5,8 @@ function login() {
 		username : username,
 		password : password
 	}, function(json) {
-         if(json.suc){
-        	 alert("登录成功");
+         if(json.success){
+        	 window.location.href="/myaccount/main/";
          }else{
         	 alert(json.msg);
          }

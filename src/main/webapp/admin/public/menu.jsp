@@ -49,16 +49,16 @@
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
-		   <li><a class="" href="/servlet/index.action">
-					<span>后台登录</span>
+		   <li><a href="/servlet/index.action">
+					<span>后台主页</span>
 			</a></li>
-			<li><a class="" href="/servlet/user_list.action">
+			<li><a class="" href="/servlet/user/list.action">
 					<span>用户管理</span>
 			</a></li>
-		     <li><a class="" href="/servlet/menu_list.action">
+		     <li><a class="" href="/servlet/menu/list.action">
 					<span>菜单管理</span>
 			</a></li>
-             <li><a class="" href="/servlet/product_list.action">
+             <li><a class="" href="/servlet/product/list.action">
 					<span>商品管理</span>
 			</a></li>
 	

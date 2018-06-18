@@ -11,13 +11,12 @@
 		<div class="account">
 			<h1>验证密保问题</h1>
 			<div class="account-pass">
-				<div class="col-md-8 account-top">
-					<form action="/wappleid/password/verify/security-question">
+				<div class="col-md-8 account-top" id="forgot-div">
 						<div>
-							<span>请输入您的wappleid</span> <input type="text" name="wappleid">
+							<span>请输入您的wappleid</span> <input type="text" name="wappleid" id="username">
 						</div>
-						<input type="submit" value="提交" required="">  <a href="/wappleid/create/customer/new">创建wappelid</a><B> OR</B> <a href="/wappleid/forget/password">忘记密码</a>
-					</form>
+						<input type="submit" value="提交" onclick="get_question();">  <a href="/wappleid/retrieve/?t=phone">忘记了wappleid?</a>
+					
 				</div>
 			
 				<div class="clearfix"></div>
@@ -26,5 +25,6 @@
 
 	</div>
 	<#include "public/footer.html" />
+	<script type="text/javascript" src="/script/question.js"></script>
 </body>
 </html>

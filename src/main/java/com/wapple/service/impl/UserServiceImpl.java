@@ -56,15 +56,14 @@ public class UserServiceImpl implements UserService {
 		if (user.getStatus() == UserStatusEnum.SUC.getCode()) {
 			return Json.success(user);
 		}
-		
-		if (user.getStatus()==UserStatusEnum.NOT_TOKE.getCode()) {
+
+		if (user.getStatus() == UserStatusEnum.NOT_TOKE.getCode()) {
 			return Json.fail(UserStatusEnum.NOT_TOKE.getValue());
 		}
-		
-		if (user.getStatus()==UserStatusEnum.EXT_JIN.getCode()) {
+
+		if (user.getStatus() == UserStatusEnum.EXT_JIN.getCode()) {
 			return Json.fail(UserStatusEnum.EXT_JIN.getValue());
 		}
-		
 
 		return Json.fail("未知错误 登录失败");
 	}
@@ -116,8 +115,37 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> userList() {
-		
+
 		return userMapper.queryUserList();
+	}
+
+	@Override
+	public User getUserByUserId(int userid) {
+
+		return userMapper.queryUserById(userid);
+	}
+
+	@Override
+	public Json<String> getQuestionByUsername(String username) {
+		if (StringUtils.isBlank(username)) {
+			return Json.fail("用户名不能为空");
+		}
+
+		if (!this.validate(username, Const.USERNAME)) {
+			return Json.fail("用户名不存在 请检查");
+		}
+
+		String question = userMapper.queryQuestionByUsername(username);
+		if (StringUtils.isBlank(question)) {
+			return Json.fail("未找到对应的密保问题 请联系管理员");
+		}
+		return Json.success(question);
+	}
+
+	@Override
+	public boolean checkAnswer(String username, String question, String answer) {
+
+		return userMapper.queryAnswerQuestionUsername(answer, question, username) > 0;
 	}
 
 }

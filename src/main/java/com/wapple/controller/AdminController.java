@@ -14,22 +14,24 @@ import org.codehaus.jackson.map.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 
 import com.google.common.collect.Lists;
+import com.wapple.enums.UserStatusEnum;
 import com.wapple.pojo.User;
 import com.wapple.service.UserService;
 import com.wapple.util.DateTimeUtil;
+import com.wapple.util.HttpServletRequsetUtil;
 import com.wapple.util.SpringUtil;
+import com.wapple.vo.UserListVo;
 import com.wapple.vo.UserVo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class AdminController extends HttpServlet {
+
+	private static final UserService userService= SpringUtil.getBean(UserService.class);
+    
 	
-	UserService userService;
-	
-	
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-	       userService=SpringUtil.getBean(UserService.class);
-	       
-	}
+
 	private static String VIEW(String viewName) {
 
 		return new StringBuffer().append("/admin/").append(viewName).append(".jsp").toString();
@@ -45,6 +47,7 @@ public class AdminController extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println(request.getRequestURI());
 		String actionName = URI(request.getRequestURI());
+		log.info("actionName:{}", actionName);
 		if (StringUtils.equals(actionName, "login")) {
 			doGetLogin(request, response);
 		} else {
@@ -52,8 +55,11 @@ public class AdminController extends HttpServlet {
 			case "index":
 				doGetIndex(request, response);
 				break;
-			case "user_list":
+			case "user/list":
 				doGetUserList(request, response);
+				break;
+			case "user/detail":
+				doGetUserDetail(request, response);
 				break;
 			default:
 				break;
@@ -74,23 +80,29 @@ public class AdminController extends HttpServlet {
 
 	protected void doGetUserList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		 List<User> userList= userService.userList();
-		 List<UserVo> userVoList=Lists.newArrayList();
-		 for (User user : userList) {
-		     UserVo userVo=new UserVo();
-		     BeanUtils.copyProperties(user, userVo);
-		     userVo.setCreateTime(DateTimeUtil.dateToStr(user.getCreateTime()));
-		     userVo.setUpdateTime(DateTimeUtil.dateToStr(user.getUpdateTime()));
-		     userVoList.add(userVo);
+		List<User> userList = userService.userList();
+		List<UserListVo> userVoList = Lists.newArrayList();
+		for (User user : userList) {
+			UserListVo userListVo=new UserListVo();
+			BeanUtils.copyProperties(user,userListVo);
+		
+			userListVo.setCreateTime(DateTimeUtil.dateToStr(user.getCreateTime()));
+			userListVo.setStatusMsg(UserStatusEnum.getValueByCode(user.getStatus()));
+			userVoList.add(userListVo);
 		}
 		request.setAttribute("userList", userVoList);
 		request.getRequestDispatcher(VIEW("user_list")).forward(request, response);
 	}
-	
-	
-	
-	
-	
-	
+
+	protected void doGetUserDetail(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int uid = HttpServletRequsetUtil.getInt(request, "userId");
+		if (uid > -1) {
+             User user=userService.getUserByUserId(uid);
+             request.setAttribute("user", user);
+		}
+		request.getRequestDispatcher(VIEW("user_detail")).forward(request, response);
+
+	}
 
 }

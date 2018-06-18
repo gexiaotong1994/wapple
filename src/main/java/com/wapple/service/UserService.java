@@ -50,10 +50,42 @@ public interface UserService {
 	
 	
 	/**
-	 * userList
+	 * userList 
+	 * 获取全部的用户列表
+	 * (无参数 默认获取数据表中存在的用户)
 	 * @return
 	 */
 	List<User> userList();
+	
+	
+	
+	/**
+	 * 根据主键获取用户实体
+	 * @param userid
+	 * @return
+	 */
+	User getUserByUserId(int userid);
+	
+	
+    
+	/**
+	 * 根据用户名获取密保问题
+	 * @param username
+	 * @return
+	 */
+	Json<String> getQuestionByUsername(String username);
+	
+	
+	
+	/**
+	 * 
+	 * @param username
+	 * @param question
+	 * @param answer
+	 * @return 
+	 */
+	boolean checkAnswer(String username,String question,String answer);
+
 	
 	
 	
