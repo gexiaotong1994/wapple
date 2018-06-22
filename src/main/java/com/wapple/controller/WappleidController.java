@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.xml.bind.ValidationException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wapple.common.Json;
+import com.wapple.enums.UserStatusEnum;
 import com.wapple.exception.VaildateException;
+import com.wapple.pojo.User;
+import com.wapple.service.UserService;
 import com.wapple.util.RedisUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +28,21 @@ import lombok.extern.slf4j.Slf4j;
 public class WappleidController {
 
 	private static final Random RANDOM = new Random();
+	
+	
+	@Autowired
+	UserService userService;
 
+	@RequestMapping("signin")
+	public String signin() {
+		return "login";
+	}
+
+	/**
+	 * 注册新用户
+	 * 
+	 * @return
+	 */
 	@RequestMapping("create/customer/new")
 	public String createNew() {
 		/**
@@ -38,39 +56,27 @@ public class WappleidController {
 
 		return "forgot";
 	}
-	
-	
-	@RequestMapping("/register-success/{username}/")
-	public String regSuccess(@PathVariable("username") String username,Model model) {
-	    model.addAttribute("username", username);
+
+	@RequestMapping("register/success/")
+	public String regSuccess(String username, Model model) {
+		model.addAttribute("username", username);
 		return "message";
 	}
 
 	
 
-	@RequestMapping("password/verify/security-question")
-	public String securityQuestion(String wappleid) {
-		if (StringUtils.isBlank(wappleid)) {
-			return "msg";
-		}
-		return null;
-	}
-
-	@RequestMapping(value = "activation/to/{username}/{type}/{value}/", method = RequestMethod.GET)
-	public String activation(@PathVariable("type") String type, @PathVariable("value") String value,
-			@PathVariable("username") String username) {
-		log.info("参数是:{}-{}-{}", type, value, username);
+	@RequestMapping(value = "activation/{username}/", method = RequestMethod.GET)
+	public String activation(String phone,@PathVariable("username") String username) {
 		int ma = RANDOM.nextInt(8999) + 1000;
 		log.info("验证码:{}", ma);
 		RedisUtil.setEx("activation_" + username, ma + "", 5 * 60);
 		return "activation";
 	}
 
-	@RequestMapping(value = "activation/to/{username}/{type}/{value}/", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "activation/{username}/", method = RequestMethod.POST)
 	@ResponseBody
-	public Json<String> activation(@PathVariable("type") String type, @PathVariable("value") String value,
-			@PathVariable("username") String username, String yamVal) {
-		log.info("参数是:{}-{}-{}", type, value, username);
+	public Json<String> activation2(@PathVariable("username") String username,String yamVal) {
 		int ma = RANDOM.nextInt(8999) + 1000;
 		log.info("验证码:{}", ma);
 		String redisVal = RedisUtil.get("activation_" + username);
@@ -80,9 +86,14 @@ public class WappleidController {
 		if (!StringUtils.equals(yamVal, redisVal)) {
 			return Json.fail("验证码错误");
 		}
-		return Json.success(username);
+		//开始执行修改逻辑 
+		boolean success=userService.modifyUserStatus(username, UserStatusEnum.SUC.getCode());
+		if (success) {
+			return Json.success(username);
+		}
+		
+		return Json.fail("用户名激活失败 请重新尝试");
+		
 	}
-	
-	
 
 }

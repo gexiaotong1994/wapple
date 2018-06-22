@@ -89,6 +89,43 @@ public interface UserService {
 	
 	
 	
+	/**
+	 * 根据用户名修改用户状态
+	 * @param username
+	 * @param status
+	 * @return
+	 */
+	boolean modifyUserStatus(String username,int status);
+	
+	
+	/**
+	 * 判断管理员是否的登录
+	 * @param request
+	 * @return
+	 */
+	 User adminUserLogin(HttpServletRequest request);
+	 
+	 
+	 
+	 /**
+	  * 系统管理员登录 
+	  * @param username
+	  * @param password
+	  * @return
+	  */
+	 Json<User> adminLogin(String username,String password);
+	 
+	 
+	 
+	 
+	
+	
+	
+	
+    
+	
+	
+	
 	
 	
 	

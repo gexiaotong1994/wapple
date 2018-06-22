@@ -30,7 +30,7 @@
 	   $("#sub").click(function(){
 		   $.post(window.location.href,{"yamVal":$("#yzm").val()},function(json){
 			   if(json.success){
-				   window.location.href="/wappleid/register-success/"+json.data+"/"; 
+				   window.location.href="/wappleid/register/success/?username="+json.data; 
 			   }else{
 				   alert(json.msg);
 			   }

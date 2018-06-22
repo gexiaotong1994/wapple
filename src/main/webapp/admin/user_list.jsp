@@ -20,7 +20,7 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Advanced Table
+                              <a href="userinit">添加用户</a>
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
@@ -28,7 +28,7 @@
                               <tr>
                                  <th>用户名</th>
                                  <th>中文名</th>
-                                 <th> 注册时间</th>
+                                 <th>注册时间</th>
                                  <th>邮箱</th>
                                  <th>手机号</th>
                                  <th>状态</th>
@@ -36,16 +36,14 @@
                               </tr>
                               <c:forEach items="${userList}" var="user">
                               <tr>
-                                 <td><a href="detail.action?userId=${user.id}">${user.username }</a></td>
+                                 <td><a href="userdetail?userId=${user.id}">${user.username }</a></td>
                                  <td>${user.usernameCn }</td>
                                  <td>${user.createTime }</td>
                                  <td>${user.email }</td>
                                  <td>${user.phone }</td>
-                                 <td>${user.statusMsg }</td>
+                                 <td>${user.statusMsg}</td>
                                  <td>
                                   <div class="btn-group">
-                                      <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                      <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
                                       <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
                                   </div>
                                   </td>
@@ -73,8 +71,8 @@
 	<!--custome script for all page-->
 	<script src="/admin/js/scripts.js"></script>
 
-	<script>
-		//knob
+   <script>
+	
 		$(".knob").knob();
 	</script>
 

@@ -59,16 +59,18 @@ public class UserController {
 		return json;
 	}
 
+	/**
+	 * 用户注册
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping("register")
 	public ModelAndView register(User user) {
-
 		userService.register(user);
 		Map<String, Object> map = Maps.newHashMap();
-
 		map.put("username", user.getUsername());
-		map.put("type", Const.PHONE);
-		map.put("value", user.getPhone());
-		String redirectUrl = "/wappleid/activation/to/{username}/{type}/{value}/";
+		map.put("phone", user.getPhone());
+		String redirectUrl = "/wappleid/activation/{username}/";
 		return new ModelAndView(new RedirectView(redirectUrl), map);
 	}
 

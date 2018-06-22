@@ -54,6 +54,10 @@ public interface UserMapper {
 	int queryAnswerQuestionUsername(@Param("answer")String answer,@Param("question")String question,@Param("username")String username);
 	
 	
+	@Update("update t_wap_user set status=#{status} where username=#{username}")
+	int updateStatusByUsername(@Param("username")String username,@Param("status")int status);
+	
+	
 	
 	
 	

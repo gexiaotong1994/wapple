@@ -7,7 +7,7 @@
 	</div>
 
 	<!--logo start-->
-	<a href="/servlet/index.action" class="logo">Wapple</a>
+	<a href="/servlet/index" class="logo">Wapple</a>
 	<!--logo end-->
 
 	<div class="nav search-row" id="top_menu">
@@ -30,7 +30,7 @@
 			<!-- user login dropdown start-->
 			<li class="dropdown"><a data-toggle="dropdown"
 				class="dropdown-toggle" href="#"> <span class="profile-ava">
-						<img alt="" src="img/avatar1_small.jpg">
+						<img alt="" src="/admin/img/avatar1_small.jpg">
 				</span> <span class="username">Jenifer Smith</span> <b class="caret"></b>
 			</a>
 				<ul class="dropdown-menu extended logout">
@@ -49,16 +49,16 @@
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
-		   <li><a href="/servlet/index.action">
+		   <li><a href="/servlet/index">
 					<span>后台主页</span>
 			</a></li>
-			<li><a class="" href="/servlet/user/list.action">
+			<li><a class="" href="/servlet/userlist">
 					<span>用户管理</span>
 			</a></li>
-		     <li><a class="" href="/servlet/menu/list.action">
+		     <li><a class="" href="/servlet/menulist">
 					<span>菜单管理</span>
 			</a></li>
-             <li><a class="" href="/servlet/product/list.action">
+             <li><a class="" href="/servlet/productlist">
 					<span>商品管理</span>
 			</a></li>
 	

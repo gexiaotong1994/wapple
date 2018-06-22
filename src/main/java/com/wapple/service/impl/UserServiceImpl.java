@@ -148,4 +148,25 @@ public class UserServiceImpl implements UserService {
 		return userMapper.queryAnswerQuestionUsername(answer, question, username) > 0;
 	}
 
+	@Override
+	public boolean modifyUserStatus(String username, int status) {
+		return userMapper.updateStatusByUsername(username, status) > 0;
+	}
+
+	@Override
+	public User adminUserLogin(HttpServletRequest request) {
+		
+		return null;
+	}
+
+	@Override
+	public Json<User> adminLogin(String username, String password) {
+		Json<User> json= this.login(username, password);
+		if (!json.isSuccess()) {
+			return json;
+		}
+		//c
+		return null;
+	}
+
 }

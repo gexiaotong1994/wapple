@@ -29,29 +29,29 @@
                                       <div class="form-group ">
                                           <label for="fullname" class="control-label col-lg-2">用户名 <span class="required">*</span></label>
                                           <div class="col-lg-10">
-                                              <input class=" form-control" id="username" name="fullname" value="${user.username}" type="text" />
+                                              <input class=" form-control" id="username" name="fullname" type="text" />
                                           </div>
                                       </div>
                                       <div class="form-group ">
                                           <label for="address" class="control-label col-lg-2">中文名 <span class="required">*</span></label>
                                           <div class="col-lg-10">
-                                              <input class=" form-control" id="usernameCn" name="address" type="text" value="${user.usernameCn}"  />
+                                              <input class=" form-control" id="usernameCn" name="address" type="text"  />
                                           </div>
                                       </div>
                                       <div class="form-group ">
                                           <label for="username" class="control-label col-lg-2">邮箱 <span class="required">*</span></label>
                                           <div class="col-lg-10">
-                                              <input class="form-control " id="username" name="username" type="text" value="${user.email }" />
+                                              <input class="form-control " id="username" name="username" type="text"  />
                                           </div>
                                       </div>
                                       <div class="form-group ">
                                           <label for="password" class="control-label col-lg-2">电话 <span class="required">*</span></label>
                                           <div class="col-lg-10">
-                                              <input class="form-control " id="password" name="password" type="text" value="${user.phone }"/>
+                                              <input class="form-control " id="password" name="password" type="text" />
                                           </div>
                                       </div>
                                       <div class="form-group ">
-                                          <label for="confirm_password" class="control-label col-lg-2">wenti<span class="required">*</span></label>
+                                          <label for="confirm_password" class="control-label col-lg-2">密保问题<span class="required">*</span></label>
                                           <div class="col-lg-10">
                                               <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
                                           </div>
@@ -62,21 +62,7 @@
                                               <input class="form-control " id="email" name="email" type="email" />
                                           </div>
                                       </div>
-                                      <div class="form-group ">
-                                          <label for="agree" class="control-label col-lg-2 col-sm-3">用户状态 </label>
-                                          <div class="col-lg-10 col-sm-9">
-                                           <c:if test="${user.status==-1}">
-                                                                                                                       未认证 [<a href="javascript:;" onclick="changeStatus(0,'${user.username}');">通过认证</a>]
-                                           </c:if>                                                                            
-                                           <c:if test="${user.status==0}">
-                                                                                                                       状态正常 [<a href="javascript:;" onclick="changeStatus(-2,'${user.username}');">禁用 </a>]
-                                           </c:if>
-                                           <c:if test="${user.status==-2}">
-                                                                                                                       已经禁用 [<a href="javascript:;" onclick="changeStatus(0,'${user.username}');">启用 </a>]
-                                           </c:if>                                                       
-                                          </div>
-                                          
-                                      </div>
+                                      
                                       <div class="form-group">
                                           <div class="col-lg-offset-2 col-lg-10">
                                               <button class="btn btn-primary" type="submit"  disabled="disabled" >Save</button>
@@ -109,7 +95,7 @@
 		//knob
 		$(".knob").knob();
 		function changeStatus(status,username){
-			$.get("/servlet/changeUserStatus.ajax",{username:username,status:status},function(json){
+			$.get("/servlet/user/changeStatus",{username:username,status:status},function(json){
 				if(json.success){
 					 alert(json.data);
 					 location.reload();
