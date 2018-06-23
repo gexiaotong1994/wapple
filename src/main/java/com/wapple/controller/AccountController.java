@@ -7,7 +7,7 @@ import freemarker.core.ReturnInstruction.Return;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/myaccount")
+@RequestMapping("/account")
 @Slf4j
 public class AccountController {
 
@@ -24,6 +24,8 @@ public class AccountController {
 	   
 		return "account/index";
 	}
+	
+  
 	
 	
 	

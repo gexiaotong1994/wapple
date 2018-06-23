@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.apache.bcel.classfile.Constant;
@@ -155,18 +156,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User adminUserLogin(HttpServletRequest request) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Json<User> adminLogin(String username, String password) {
-		Json<User> json= this.login(username, password);
+		Json<User> json = this.login(username, password);
 		if (!json.isSuccess()) {
 			return json;
 		}
-		//c
+		// c
 		return null;
+	}
+
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		 CookieUtil.del(request, response, CookieEnum.LOGIN.getKey());
+
 	}
 
 }

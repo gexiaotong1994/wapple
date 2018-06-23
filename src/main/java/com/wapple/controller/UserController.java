@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
@@ -61,6 +62,7 @@ public class UserController {
 
 	/**
 	 * 用户注册
+	 * 
 	 * @param user
 	 * @return
 	 */
@@ -105,32 +107,38 @@ public class UserController {
 		}
 
 	}
-	
+
 	@RequestMapping("get_question_by_username")
 	@ResponseBody
 	public Json<String> getQuestionByUsername(String username) {
-		
+
 		return userService.getQuestionByUsername(username);
 	}
-	
-	
+
+	@RequestMapping("check_login")
+	@ResponseBody
+	public Json<String> checkLogin(HttpServletRequest request) {
+		User user = userService.loginUser(request);
+		if (user == null) {
+			return Json.fail();
+		}
+		return Json.success(user.getUsername());
+	}
+
 	@RequestMapping("check_answer")
 	@ResponseBody
-	public Json<String> checkAnswer(String username,String question,String answer) {
-		boolean success=userService.checkAnswer(username, question, answer);
+	public Json<String> checkAnswer(String username, String question, String answer) {
+		boolean success = userService.checkAnswer(username, question, answer);
 		if (success) {
 			return Json.success();
 		}
 		return Json.fail("密保问题错误!");
 	}
-	
-	
-	
-	
-	
-   
-	
-	
-	
+
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		userService.logout(request, response);
+		return "redirect:/";
+	}
 
 }

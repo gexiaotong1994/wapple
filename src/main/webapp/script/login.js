@@ -6,7 +6,7 @@ function login() {
 		password : password
 	}, function(json) {
          if(json.success){
-        	 window.location.href="/myaccount/main/";
+        	 window.location.href="/account/main/";
          }else{
         	 alert(json.msg);
          }

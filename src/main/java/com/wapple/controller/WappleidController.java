@@ -95,5 +95,13 @@ public class WappleidController {
 		return Json.fail("用户名激活失败 请重新尝试");
 		
 	}
+	
+	
+	@RequestMapping("retrieve/")
+	public String retrieve() {
+		
+		
+		return "retrieve";
+	}
 
 }

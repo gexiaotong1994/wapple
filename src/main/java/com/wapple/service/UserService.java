@@ -3,6 +3,7 @@ package com.wapple.service;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.wapple.common.Json;
 import com.wapple.pojo.User;
@@ -118,6 +119,11 @@ public interface UserService {
 	 
 	 
 	 
+	 /**
+	  * 退出登录方法
+	  * @param request
+	  */
+	 void logout(HttpServletRequest request,HttpServletResponse response);
 	
 	
 	

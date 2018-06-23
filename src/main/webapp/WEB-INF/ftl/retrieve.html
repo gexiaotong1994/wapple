@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WAPPLE</title>
+<#include "public/head.html" />
+</head>
+<body>
+	<!--header-->
+	<#include "public/menu.html" />
+	<div class="container">
+		<div class="account">
+			<h1>找回wappleid</h1>
+			<div class="account-pass">
+				<div class="col-md-8 account-top" id="forgot-div">
+						<div>
+							<span>请输入您注册时候的手机号</span> <input type="text" name="wappleid" id="username">
+						</div>
+						<input type="submit" value="提交" onclick="get_question();">  <a href="?t=email">通过邮箱找回</a>
+					
+				</div>
+			
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+	</div>
+	<#include "public/footer.html" />
+</body>
+</html>
