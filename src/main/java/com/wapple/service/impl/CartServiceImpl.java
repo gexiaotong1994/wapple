@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.wapple.common.Json;
 import com.wapple.mapper.CartDao;
+import com.wapple.mapper.ProductDao;
 import com.wapple.pojo.Cart;
+import com.wapple.pojo.Product;
 import com.wapple.service.CartService;
 import com.wapple.vo.CartListVo;
 import com.wapple.vo.CartVo;
@@ -18,6 +20,9 @@ public class CartServiceImpl implements CartService {
 
 	@Autowired
 	CartDao cartDao;
+
+	@Autowired
+	ProductDao productDao;
 
 	@Override
 	public boolean addCart(Integer userId, Integer productId, Integer num) {
@@ -46,8 +51,10 @@ public class CartServiceImpl implements CartService {
 			for (Cart cart : cartList) {
 				CartListVo cartListVo = new CartListVo();
 				cartListVo.setId(cart.getId());
-				cartListVo.setNum(cart.getNum());
-				 
+				Product product = productDao.queryProductById(cart.getProductId());
+                if (product==null) {
+					
+				}
 			}
 
 			return cartVo;
