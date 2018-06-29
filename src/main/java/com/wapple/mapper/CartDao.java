@@ -1,5 +1,7 @@
 package com.wapple.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.wapple.pojo.Cart;
@@ -15,6 +17,10 @@ public interface CartDao {
 	
 	
 	int updateCartNum(Cart cart);
+	
+	
+	
+	List<Cart> queryCartListByUserId(int userId);
 	
 
 }

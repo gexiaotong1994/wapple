@@ -11,39 +11,47 @@ import com.wapple.common.Json;
 import com.wapple.pojo.User;
 import com.wapple.service.CartService;
 import com.wapple.service.UserService;
+import com.wapple.vo.CartVo;
 
 @Controller
 @RequestMapping("/cart/")
 public class CartController {
-	
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	CartService cartService;
-	
+
 	@RequestMapping
 	public String index() {
 
 		return "cart";
 	}
-	
 
-	
 	@RequestMapping("add")
 	@ResponseBody
-	public Json<String> add(HttpServletRequest request,Integer productId,int num){
-		User loginUser=this.userService.loginUser(request);
-		if (loginUser==null) {
+	public Json<String> add(HttpServletRequest request, Integer productId, int num) {
+		User loginUser = this.userService.loginUser(request);
+		if (loginUser == null) {
 			return Json.fail("请登录后 再添加到购物车");
 		}
-	    boolean success= cartService.addCart(loginUser.getId(), productId, num);
-	    if (success) {
-	    	return Json.success("添加购物车成功");
+		boolean success = cartService.addCart(loginUser.getId(), productId, num);
+		if (success) {
+			return Json.success("添加购物车成功");
 		}
 		return Json.fail("添加购物车失败");
 	}
-	
-	
+
+	@RequestMapping("list")
+	@ResponseBody
+	public Json<CartVo> list(HttpServletRequest request) {
+		User loginUser = this.userService.loginUser(request);
+		if (loginUser == null) {
+			return Json.fail("请登录后 再添加到购物车");
+		}
+        
+		return null;
+	}
 
 }

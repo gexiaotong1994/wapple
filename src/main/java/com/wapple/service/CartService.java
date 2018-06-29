@@ -1,5 +1,7 @@
 package com.wapple.service;
 
+import com.wapple.vo.CartVo;
+
 public interface CartService {
 
 	
@@ -11,6 +13,17 @@ public interface CartService {
 	 * @return
 	 */
 	boolean addCart(Integer userId,Integer productId,Integer num);
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	CartVo list(int userId);
+	
 	
 	
 	

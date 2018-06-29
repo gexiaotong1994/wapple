@@ -10,7 +10,7 @@
 	<sql id="paramsSql">
 		`id`,`user_id`,`product_id`,`num`
 	</sql>
-  
+
 	<insert id="insertCart" parameterType="com.wapple.pojo.Cart">
 		insert into
 		t_cart(user_id,product_id,num)
@@ -18,7 +18,8 @@
 	</insert>
 
 	<update id="updateCartNum" parameterType="com.wapple.pojo.Cart">
-		update t_cart set `num`=#{num} where `id`=#{id}
+		update t_cart set
+		`num`=#{num} where `id`=#{id}
 	</update>
 
 	<select id="queryCartByUserIdAndProductId" resultMap="cartMap">
@@ -26,6 +27,13 @@
 		<include refid="paramsSql" />
 		from t_cart
 		where `user_id`=#{userId} and `product_id`=#{productId}
+	</select>
+
+	<select id="queryCartListByUserId" resultMap="cartMap">
+		select
+		<include refid="paramsSql" />
+		from t_cart
+		where `user_id`=#{userId}
 	</select>
 
 </mapper>
