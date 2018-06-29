@@ -7,6 +7,9 @@ public final class Const {
 	public static final String PHONE="phone";
 	
 	
-	
+	public interface Role{
+		int cus= 0;
+		int admin=1;
+	}
 	
 }

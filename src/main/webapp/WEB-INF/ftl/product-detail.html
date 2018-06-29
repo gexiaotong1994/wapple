@@ -1,0 +1,106 @@
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>商品详情</title>
+ <#include "public/head.html" />
+</head>
+<body>
+<!--header-->
+
+ <#include "public/menu.html" />
+
+	
+<!--content-->
+<!---->
+		<div class="product">
+			<div class="container">
+				
+				<div class="col-md-9 product-price1">
+				<div class="col-md-5 single-top">	
+			<div class="flexslider">
+  <ul class="slides">
+   <!--  <li data-thumb="/images/si.jpg">
+      <img src="/images/si.jpg" />
+    </li>
+    <li data-thumb="/images/si1.jpg">
+      <img src="/images/si1.jpg" />
+    </li>
+    <li data-thumb="/images/si2.jpg">
+      <img src="/images/si2.jpg" />
+    </li>
+    <li data-thumb="/images/si.jpg">
+      <img src="/images/si.jpg" />
+    </li> -->
+     <li>
+      <img src="/images/img/${product.mainImage}" />
+    </li> 
+  </ul>
+</div>
+<!-- FlexSlider -->
+  <script defer src="/js/jquery.flexslider.js"></script>
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+<script>
+// Can also be used with $(document).ready()
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+});
+</script>
+					</div>	
+					<div class="col-md-7 single-top-in simpleCart_shelfItem">
+						<div class="single-para ">
+						<h4>${product.title}</h4>
+							<div class="star-on">
+								<ul class="star-footer">
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+										<li><a href="#"><i> </i></a></li>
+									</ul>
+								<div class="review">
+									<a href="#"> 1 customer review </a>
+									
+								</div>
+							<div class="clearfix"> </div>
+							</div>
+							
+							<h5 class="item_price">${product.price}</h5>
+							<p>
+							  ${product.desc}
+							</p>
+						
+						</div>
+							<ul class="tag-men">
+								<li><span>售出</span>
+								<span class="women1">:${product.sales}</span></li>
+								<li><span>库存</span>
+								<span class="women1">:${product.stock}</span></li>
+							</ul>
+								<a href="javascript:;" class="add-cart item_add" onclick="add_cart('${product.id}',1);" >添加到购物车</a>  
+								<a href="javascript:;" class="add-cart item_add" onclick="buy_now()">直接购买(会员)</a>  
+								<a href="javascript:;" class="add-cart item_add" onclick="buy_now_not_member();">直接购买(非会员)</a>  
+							    <br><br>
+						</div>
+					</div>
+				<div class="clearfix"> </div>
+			<!---->
+					
+		<div class="clearfix"> </div>
+		</div>
+		</div>
+<!--//content-->
+<script type="text/javascript" src="/script/detail.js"></script>
+<#include "public/footer.html" />
+</body>
+</html>
+			

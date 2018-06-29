@@ -24,37 +24,37 @@ public interface UserMapper {
 			@Result(column = "username_cn", property = "usernameCn"),
 			@Result(column = "create_time", property = "createTime"),
 			@Result(column = "update_time", property = "updateTime") })
-	@Select("  SELECT u.* FROM t_wap_user u WHERE u.username=#{username} AND u.password=#{password}")
+	@Select("  SELECT u.* FROM t_user u WHERE u.username=#{username} AND u.password=#{password}")
 	User queryUserByNameAndPass(@Param("username") String username, @Param("password") String password);
 
 	
 	
-	@Insert("INSERT INTO t_wap_user(`username`,`password`,`username_cn`,email,phone,question,answer) "
+	@Insert("INSERT INTO t_user(`username`,`password`,`username_cn`,email,phone,question,answer) "
 			+ "VALUE(#{username},#{password},#{usernameCn},#{email},#{phone},#{question},#{answer})")
 	int insertUser(User user);
 	
 	
 	
-	@Update("update t_wap_user set status=#{status} where username=#{username}")
+	@Update("update t_user set status=#{status} where username=#{username}")
 	int updateUserStatus(@Param("status") int status,@Param("username") String username);
 	
 	@ResultMap(value="userMapperMap")
-	@Select("SELECT u.`id`,u.`username`,u.`username_cn`,u.`email`,u.`phone`,u.`status`,u.`create_time` FROM t_wap_user u")
+	@Select("SELECT u.`id`,u.`username`,u.`username_cn`,u.`email`,u.`phone`,u.`status`,u.`create_time` FROM t_user u")
 	List<User> queryUserList();
 	
 	@ResultMap(value="userMapperMap")
-	@Select("SELECT u.* FROM t_wap_user u where u.id=#{id}")
+	@Select("SELECT u.* FROM t_user u where u.id=#{id}")
 	User queryUserById(@Param("id")int id);
 	
 	
-	@Select("select question from t_wap_user where username=#{username}")
+	@Select("select question from t_user where username=#{username}")
 	String queryQuestionByUsername(String username);
 	
-	@Select("select count(1) from t_wap_user where username=#{username} and question=#{question} and answer=#{answer}")
+	@Select("select count(1) from t_user where username=#{username} and question=#{question} and answer=#{answer}")
 	int queryAnswerQuestionUsername(@Param("answer")String answer,@Param("question")String question,@Param("username")String username);
 	
 	
-	@Update("update t_wap_user set status=#{status} where username=#{username}")
+	@Update("update t_user set status=#{status} where username=#{username}")
 	int updateStatusByUsername(@Param("username")String username,@Param("status")int status);
 	
 	

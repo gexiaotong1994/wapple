@@ -52,13 +52,13 @@
 		   <li><a href="/servlet/index">
 					<span>后台主页</span>
 			</a></li>
-			<li><a class="" href="/servlet/userlist">
+			<li><a class="" href="/servlet/admin/user/userlist.vhtml">
 					<span>用户管理</span>
 			</a></li>
 		     <li><a class="" href="/servlet/menulist">
 					<span>菜单管理</span>
 			</a></li>
-             <li><a class="" href="/servlet/productlist">
+             <li><a class="" href="/servlet/admin/product/productlist.vhtml">
 					<span>商品管理</span>
 			</a></li>
 	
@@ -68,7 +68,7 @@
 			</a>
 				<ul class="sub">
 					<li><a class="" href="profile.html">Profile</a></li>
-					<li><a class="" href="login.html"><span>Login Page</span></a></li>
+					<li><a class="" href="login.html"><span>Login Pag2</span></a></li>
 					<li><a class="" href="blank.html">Blank Page</a></li>
 					<li><a class="" href="404.html">404 Error</a></li>
 				</ul></li>

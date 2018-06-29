@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum RedisEnum {
 	USER_LOGIN("redis_login_","用户 ",60*15),
-	ADMMIN_LOGIN("admin_login_","管理员用户 ",60*15);
+	ADMIN_LOGIN("admin_login_","管理员用户 ",60*10);
 	private String key;
 	private int exTime;
 	private String msg;

@@ -19,11 +19,11 @@
 
    <servlet>
       <servlet-name>admin-servlet</servlet-name>
-      <servlet-class>com.wapple.controller.AdminController</servlet-class>
+      <servlet-class>com.wapple.servlet.AdminServlet</servlet-class>
    </servlet>
    <servlet-mapping>
        <servlet-name>admin-servlet</servlet-name>
-       <url-pattern>/servlet/*</url-pattern>
+       <url-pattern>*.vhtml</url-pattern>
    </servlet-mapping>
 	<servlet-mapping>
 

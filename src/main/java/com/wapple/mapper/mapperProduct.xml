@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wapple.mapper.ProductDao">
+	<resultMap type="com.wapple.pojo.Product" id="productMap">
+
+		<id column="id" property="id" />
+		<result column="main_image" property="mainImage" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="title" property="title" />
+		<result column="desc" property="desc" />
+		<result column="price" property="price" />
+		<result column="stock" property="stock" />
+		<result column="name" property="name" />
+		<result column="status" property="status" />
+		<association property="category" javaType="com.wapple.pojo.Category">
+			<result column="cname" property="name" />
+		</association>
+	</resultMap>
+
+	<select id="queryListAll" resultMap="productMap">
+		SELECT
+		p.`id`,
+		p.`name`,
+		p.`main_image`,
+		p.`title`,
+		p.`stock`,
+		p.`sales`,
+		p.`price`,
+		p.`desc`,
+		p.`status`,
+		p.`create_time`,
+		p.`update_time`,
+		c.`name` cname
+		FROM
+		t_product p
+		LEFT JOIN
+		t_category c
+		ON p.`category_id` = c.`id`
+	</select>
+
+	<select id="queryList" resultMap="productMap">
+		SELECT
+		p.`id`,
+		p.`name`,
+		p.`main_image`,
+		p.`title`,
+		p.`stock`,
+		p.`sales`,
+		p.`price`,
+		p.`desc`,
+		p.`status`,
+		p.`create_time`,
+		p.`update_time`,
+		c.`name` cname
+		FROM
+		t_product p
+		LEFT JOIN
+		t_category c
+		ON p.`category_id` =
+		c.`id`
+		<if test="page!=null">
+			LIMIT #{page.limit},#{page.offset}
+		</if>
+	</select>
+
+	<select id="queryProductById" resultMap="productMap">
+		SELECT
+		p.`id`,
+		p.`name`,
+		p.`main_image`,
+		p.`title`,
+		p.`stock`,
+		p.`price`,
+		p.`sales`,
+		p.`desc`,
+		p.`status`,
+		p.`create_time`,
+		p.`update_time`,
+		c.`name` cname
+		FROM
+		t_product p
+		LEFT JOIN
+		t_category c
+		ON p.`category_id` = c.`id`
+		where p.`id`=#{id}
+	</select>
+
+	<select id="queryProductByName" resultMap="productMap">
+		SELECT
+		p.`id`,
+		p.`name`,
+		p.`main_image`,
+		p.`title`,
+		p.`stock`,
+		p.`sales`,
+		p.`desc`,
+		p.`status`,
+		p.`price`,
+		p.`create_time`,
+		p.`update_time`,
+		c.`name` cname
+		FROM
+		t_product p
+		LEFT JOIN
+		t_category c
+		ON p.`category_id` = c.`id`
+		where
+		p.`name`=#{name}
+	</select>
+
+	<update id="updateProduct" parameterType="com.wapple.pojo.Product">
+		UPDATE t_product SET
+		`name`=#{name},`title`=#{title},`stock`=#{stock},`price`=#{price},`desc`=#{desc}
+		WHERE `id`=#{id}
+	</update>
+</mapper>

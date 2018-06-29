@@ -32,11 +32,11 @@
                                  <th>邮箱</th>
                                  <th>手机号</th>
                                  <th>状态</th>
-                                 <th> 动作</th>
+                                 <th>动作</th>
                               </tr>
                               <c:forEach items="${userList}" var="user">
                               <tr>
-                                 <td><a href="userdetail?userId=${user.id}">${user.username }</a></td>
+                                 <td><a href="detail.vhtml?userid=${user.id}">${user.username }</a></td>
                                  <td>${user.usernameCn }</td>
                                  <td>${user.createTime }</td>
                                  <td>${user.email }</td>
@@ -61,7 +61,7 @@
 	</section>
 
 
-	<!-- javascripts -->
+
 	<script src="/admin/js/jquery.js"></script>
 	<script src="/admin/js/bootstrap.min.js"></script>
 	<!-- nice scroll -->

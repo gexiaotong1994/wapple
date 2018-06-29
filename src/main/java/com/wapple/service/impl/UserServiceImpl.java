@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User adminUserLogin(HttpServletRequest request) {
-
+        CookieUtil.read(request, CookieEnum.LOGIN_ADMIN.getKey());
 		return null;
 	}
 
@@ -166,7 +166,7 @@ public class UserServiceImpl implements UserService {
 		if (!json.isSuccess()) {
 			return json;
 		}
-		// c
+		
 		return null;
 	}
 
