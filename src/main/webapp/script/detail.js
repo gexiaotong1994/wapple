@@ -7,7 +7,6 @@ function add_cart1(){
 
 
 function add_cart(id,num){
- alert("id:"+id+"num:"+num)
   $.get("/cart/add",{productId:id,num:num},function(json){
 	  if(json.success){
 		   alert(json.data);

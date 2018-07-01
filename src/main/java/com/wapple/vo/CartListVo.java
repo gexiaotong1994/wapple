@@ -7,5 +7,8 @@ public class CartListVo {
      private long id;
      private int num;
      private int price;
+     private int prdouctId;
+     private String prdouctName;
+     
 
 }

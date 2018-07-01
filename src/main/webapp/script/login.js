@@ -6,7 +6,15 @@ function login() {
 		password : password
 	}, function(json) {
          if(json.success){
-        	 window.location.href="/account/main/";
+        	 url=window.location.href;
+        	 if(url.indexOf("backurl=")>-1){
+        		 var backurl=url.split("backurl=")[1];
+        		  backurl=decodeURIComponent(backurl)
+        		 window.location.href=backurl;
+        	 }else{
+        		 window.location.href="/account/main/";
+        	 }
+        	 
          }else{
         	 alert(json.msg);
          }

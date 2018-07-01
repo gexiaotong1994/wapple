@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public CartVo list(int userId) {
+	public Json<CartVo> list(int userId) {
 		List<Cart> cartList = cartDao.queryCartListByUserId(userId);
 		if (cartList.size() > 0) {
 			CartVo cartVo = new CartVo();
@@ -52,14 +52,29 @@ public class CartServiceImpl implements CartService {
 				CartListVo cartListVo = new CartListVo();
 				cartListVo.setId(cart.getId());
 				Product product = productDao.queryProductById(cart.getProductId());
-                if (product==null) {
-					
+				if (product == null) {// 证明目前商品已经不存在了 直接将记录从购物车表中移除
+					cartDao.delete(cart);
+					continue;
 				}
+				int num;
+				int productStock = product.getStock();
+				if (productStock < cart.getNum()) {
+					cart.setNum(productStock);
+					cartDao.updateCartNum(cart);
+					num = productStock;
+				}
+				num=cart.getNum();
+				cartListVo.setId(cart.getId());
+			    cartListVo.setPrdouctName(product.getName());
+				
+				
+				
+
 			}
 
-			return cartVo;
+			return null;
 		}
-		return null;
+		return Json.fail("您购物车为空");
 	}
 
 }

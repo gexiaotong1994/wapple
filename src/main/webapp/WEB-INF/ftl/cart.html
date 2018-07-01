@@ -14,22 +14,22 @@
 			 <h1>我的购物车(2)</h1>
 		 <div class="col-md-9 cart-items">
 			
-				<script>$(document).ready(function(c) {
+				<!-- <script>$(document).ready(function(c) {
 					$('.close1').on('click', function(c){
 						$('.cart-header').fadeOut('slow', function(c){
 							$('.cart-header').remove();
 						});
 						});	  
 					});
-			   </script>
+			   </script> -->
 			 <div class="cart-header">
-				 <div class="close1"> </div>
+				 <div class="close1" onclick="close_1();"></div>
 				 <div class="cart-sec simpleCart_shelfItem">
 						<div class="cart-item cyc">
 							 <img src="/images/pic1.jpg" class="img-responsive" alt=""/>
 						</div>
 					   <div class="cart-item-info">
-						<h3><a href="#">Mountain Hopper(XS R034)</a><span>Model No: 3578</span></h3>
+						<h3><a href="#">Mountain Hopper(XS R034)</a><span>商品编号: 3578</span></h3>
 						<ul class="qty">
 							<li><p>Size : 5</p></li>
 							<li><p>Qty : 1</p></li>
@@ -83,7 +83,12 @@
 
  <#include "public/footer.html" />
 
+<script type="text/javascript">
+   function close_1(){
+	   alert("确定删除吗");
+   }
 
+</script>
 </body>
 </html>
 			

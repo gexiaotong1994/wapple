@@ -70,7 +70,16 @@
 	      if(json.success){
 	    	 $("#login-li").html('<a href="/account/main/">'+json.data+' 个人主页</a>');
 	     }else{
-	    	 $("#login-li").html('<a href="/wappleid/signin">登录</a>');
+	    	 $("#login-li").html('<a href="javascript:;" onclick="login1();">登录</a>');
 	     }
-  });
+  });//decodeURIComponent(
+  function login1(){
+	  var url= window.location.href;
+	  if(url.indexOf("wappleid")>-1){
+		  window.location.href="/wappleid/signin";
+		  return;
+	  }
+	  url=encodeURIComponent(url);
+	  window.location.href="/wappleid/signin?backurl="+url;
+  }
 </script>

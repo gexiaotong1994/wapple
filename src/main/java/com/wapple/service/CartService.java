@@ -1,5 +1,6 @@
 package com.wapple.service;
 
+import com.wapple.common.Json;
 import com.wapple.vo.CartVo;
 
 public interface CartService {
@@ -22,7 +23,7 @@ public interface CartService {
 	 * @param userId
 	 * @return
 	 */
-	CartVo list(int userId);
+	Json<CartVo> list(int userId);
 	
 	
 	
