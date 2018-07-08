@@ -7,7 +7,7 @@
 	</div>
 
 	<!--logo start-->
-	<a href="/servlet/index" class="logo">Wapple</a>
+	<a href="/back/index" class="logo">Wapple</a>
 	<!--logo end-->
 
 	<div class="nav search-row" id="top_menu">
@@ -46,25 +46,23 @@
 	</div>
 </header>
 <aside>
-	<div id="sidebar" class="nav-collapse ">
+	<div id="sidebar" class="nav-collapse">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
-		   <li><a href="/servlet/index">
+		   <li><a href="/back/index">
 					<span>后台主页</span>
 			</a></li>
-			<li><a class="" href="/servlet/admin/user/userlist.vhtml">
+			<li><a class="" href="/back/user">
 					<span>用户管理</span>
 			</a></li>
-		     <li><a class="" href="/servlet/menulist">
+		     <li><a class="" href="/back/menu">
 					<span>菜单管理</span>
 			</a></li>
-             <li><a class="" href="/servlet/admin/product/productlist.vhtml">
+             <li><a class="" href="/back/product">
 					<span>商品管理</span>
 			</a></li>
 	
-			<li class="sub-menu"><a href="javascript:;" class=""> <i
-					class="icon_documents_alt"></i> <span>Pages</span> <span
-					class="menu-arrow arrow_carrot-right"></span>
+			<li class="sub-menu"><a href="javascript:;" class=""><span>Pages</span>
 			</a>
 				<ul class="sub">
 					<li><a class="" href="profile.html">Profile</a></li>

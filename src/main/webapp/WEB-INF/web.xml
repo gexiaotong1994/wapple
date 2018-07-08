@@ -3,9 +3,23 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:shiro.xml</param-value>
+	</context-param>
+
+
+
+
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<load-on-startup>1</load-on-startup>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring-*.xml</param-value>
@@ -14,17 +28,18 @@
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+
 	</servlet-mapping>
 
 
-   <servlet>
-      <servlet-name>admin-servlet</servlet-name>
-      <servlet-class>com.wapple.servlet.AdminServlet</servlet-class>
-   </servlet>
-   <servlet-mapping>
-       <servlet-name>admin-servlet</servlet-name>
-       <url-pattern>*.vhtml</url-pattern>
-   </servlet-mapping>
+	<servlet>
+		<servlet-name>admin-servlet</servlet-name>
+		<servlet-class>com.wapple.servlet.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>admin-servlet</servlet-name>
+		<url-pattern>*.vhtml</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 
 		<servlet-name>default</servlet-name>
@@ -43,6 +58,9 @@
 
 	</servlet-mapping>
 
+	<!-- <filter> <filter-name>shiroFilter</filter-name> <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+		</filter> <filter-mapping> <filter-name>shiroFilter</filter-name> <url-pattern>/admin/*</url-pattern> 
+		</filter-mapping> -->
 	<!-- 编码过滤器 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -55,6 +73,15 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>HttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HttpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 

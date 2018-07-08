@@ -11,8 +11,8 @@
 	
 <div class="container">
 	<div class="check">	 
-			 <h1>我的购物车(2)</h1>
-		 <div class="col-md-9 cart-items">
+			 <h1>我的购物车</h1>
+		 <div class="col-md-9 cart-items"  id="base-cart-div">
 			
 				<!-- <script>$(document).ready(function(c) {
 					$('.close1').on('click', function(c){
@@ -22,6 +22,8 @@
 						});	  
 					});
 			   </script> -->
+			   
+			   <!-- 
 			 <div class="cart-header">
 				 <div class="close1" onclick="close_1();"></div>
 				 <div class="cart-sec simpleCart_shelfItem">
@@ -31,13 +33,12 @@
 					   <div class="cart-item-info">
 						<h3><a href="#">Mountain Hopper(XS R034)</a><span>商品编号: 3578</span></h3>
 						<ul class="qty">
-							<li><p>Size : 5</p></li>
-							<li><p>Qty : 1</p></li>
+							<li><p>单价 : 5</p></li>
+							<li><p>数量 : 1  <button>+</button></p></li>
 						</ul>
 						
 							 <div class="delivery">
-							 <p>Service Charges : Rs.100.00</p>
-							 <span>Delivered in 2-3 bussiness days</span>
+							 <p>共1件 价格:89000</p>
 							 <div class="clearfix"></div>
 				        </div>	
 					   </div>
@@ -45,42 +46,42 @@
 											
 				  </div>
 			 </div>
-			 
+			  -->
 		 </div>
 		  <div class="col-md-3 cart-total">
 			 <a class="continue" href="#">Continue to basket</a>
 			 <div class="price-details">
-				 <h3>Price Details</h3>
-				 <span>Total</span>
-				 <span class="total1">6200.00</span>
-				 <span>Discount</span>
-				 <span class="total1">---</span>
-				 <span>Delivery Charges</span>
-				 <span class="total1">150.00</span>
+				 <h3>购物车明细 </h3>
+				 <span>总数量</span>
+				 <span class="total1" id="countNum">0</span>
+				 <span>运费</span>
+				 <span class="total1">0</span>
+				 <span>总价</span>
+				 <span class="total1" id="countPrice">0</span>
 				 <div class="clearfix"></div>				 
 			 </div>	
 			 <ul class="total_price">
-			   <li class="last_price"> <h4>TOTAL</h4></li>	
-			   <li class="last_price"><span>6350.00</span></li>
+			   <li class="last_price"> <h4>共计</h4></li>	
+			   <li class="last_price"><span>0</span></li>
 			   <div class="clearfix"> </div>
 			 </ul>
 			
 			 
 			 <div class="clearfix"></div>
-			 <a class="order" href="#">Place Order</a>
-			 <div class="total-item">
-				 <h3>OPTIONS</h3>
+			 <a class="order"  href="javascript:void(0);">生成订单</a>
+			<!--  <div class="total-item">
+				 <h3></h3>
 				 <h4>COUPONS</h4>
 				 <a class="cpns" href="#">Apply Coupons</a>
 				 <p><a href="#">Log In</a> to use accounts - linked coupons</p>
-			 </div>
+			 </div> -->
 			</div>
 		
 			<div class="clearfix"> </div>
 	 </div>
 	 </div>
 
-
+<script type="text/javascript" src="/script/cart.js"></script>
  <#include "public/footer.html" />
 
 <script type="text/javascript">

@@ -103,22 +103,29 @@
 		}
 		
 		function update(){
-			$.get("/servlet/amdin/product/productupdate.vhtml",{
+			var product={
 				name:$("#name").val(),
 				title:$("#title").val(),
 				stock:$("#stock").val(),
 				price:$("#price").val(),
 				desc:$("#desc").val(),
 				id:$("#pid").val()
-				},
-				function(json){
-			    if(json.success){
-			    	alert(json.data);
-			    	window.location.reload();
-			    }else{
-			    	alert(json.msg);
-			    }
-			});
+			};
+			
+			$.ajax({
+			   url:"/back/product/"+$("#pid").val(),
+			   type:"put",
+			   dataType:"json",
+			   data:product,
+			   success:function(json){
+				   if(json.success){
+					   
+				   }else{
+					   alert("修改失败");
+				   }
+			   }
+			})
+			
 		}
 		
 		

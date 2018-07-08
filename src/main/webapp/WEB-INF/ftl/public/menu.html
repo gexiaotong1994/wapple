@@ -32,15 +32,15 @@
 		  <div class=" h_menu4">
 				<ul class="memenu skyblue">
 					  <li class="active grid"><a class="color8" href="/">主页</a></li>	
-				      <li><a class="color4" href="/notebook/">电脑</a></li>				
-				      <li><a class="color6" href="/phone/">手机</a></li>  
-				    <li class="grid"><a class="color2" href="#">实体零售</a>
+				      <li><a class="color4" href="/product/category/notebook/">电脑</a></li>				
+				      <li><a class="color6" href="/product/category/phone/">手机</a></li>  
+				    <li class="grid"><a class="color2" href="javascript:void(0);">实体零售</a>
 					  	<div class="mepanel">
 						<div class="row">
 							<div class="col1">
 								<div class="h_nav">
 									<ul>
-										<li><a href="products.html">Accessories</a></li>
+										<li><a href="/bao/">Accessories</a></li>
 										<li><a href="products.html">Bags</a></li>
 									</ul>	
 								</div>							
@@ -68,7 +68,7 @@
 <script>
   $.get("/user/check_login",{},function(json){
 	      if(json.success){
-	    	 $("#login-li").html('<a href="/account/main/">'+json.data+' 个人主页</a>');
+	    	 $("#login-li").html('<a href="/myaccount/">'+json.data+' 个人主页</a>');
 	     }else{
 	    	 $("#login-li").html('<a href="javascript:;" onclick="login1();">登录</a>');
 	     }
@@ -76,10 +76,10 @@
   function login1(){
 	  var url= window.location.href;
 	  if(url.indexOf("wappleid")>-1){
-		  window.location.href="/wappleid/signin";
+		  window.location.href="/wappleid/login";
 		  return;
 	  }
 	  url=encodeURIComponent(url);
-	  window.location.href="/wappleid/signin?backurl="+url;
+	  window.location.href="/wappleid/login?backurl="+url;
   }
 </script>

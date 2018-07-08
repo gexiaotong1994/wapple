@@ -6,8 +6,15 @@ import lombok.Data;
 
 @Data
 public class CartVo {
-    private int totalNum;//总数量 
-    private int totalPrice;//总价
-    private List<CartListVo> CartListVos;
-    
+	private int countNum;// 总数量
+	private int countPrice;// 总价
+	private int yunfei;
+	private List<CartListVo> cartListVos;
+
 }
+
+
+
+
+
+

@@ -23,6 +23,7 @@ public class IndexController {
 	public String index(Model model) {
 		
 		List<Product> list=productService.productList(new Page(0, 3));
+		
 		model.addAttribute("pList", list);
 		return "index";
 		

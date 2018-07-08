@@ -33,7 +33,7 @@ public class WappleidController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping("signin")
+	@RequestMapping("login")
 	public String signin() {
 		return "login";
 	}
@@ -43,21 +43,21 @@ public class WappleidController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("create/customer/new")
-	public String createNew() {
+	@RequestMapping("register")
+	public String register() {
 		/**
 		 * 注册新用户
 		 */
 		return "register";
 	}
 
-	@RequestMapping("forgot/password")
+	@RequestMapping("forgot-pwd")
 	public String forgot() {
 
-		return "forgot";
+		return "forgot-pwd";
 	}
 
-	@RequestMapping("register/success/")
+	@RequestMapping("register-success")
 	public String regSuccess(String username, Model model) {
 		model.addAttribute("username", username);
 		return "message";
@@ -74,7 +74,7 @@ public class WappleidController {
 	}
 
 	
-	@RequestMapping(value = "activation/{username}/", method = RequestMethod.POST)
+	@RequestMapping(value = "activation/{username}", method = RequestMethod.POST)
 	@ResponseBody
 	public Json<String> activation2(@PathVariable("username") String username,String yamVal) {
 		int ma = RANDOM.nextInt(8999) + 1000;
@@ -97,7 +97,7 @@ public class WappleidController {
 	}
 	
 	
-	@RequestMapping("retrieve/")
+	@RequestMapping("retrieve")
 	public String retrieve() {
 		
 		

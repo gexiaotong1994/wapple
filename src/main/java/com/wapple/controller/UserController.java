@@ -72,7 +72,7 @@ public class UserController {
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("username", user.getUsername());
 		map.put("phone", user.getPhone());
-		String redirectUrl = "/wappleid/activation/{username}/";
+		String redirectUrl = "/wappleid/activation/{username}";
 		return new ModelAndView(new RedirectView(redirectUrl), map);
 	}
 

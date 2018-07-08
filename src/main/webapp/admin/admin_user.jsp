@@ -36,7 +36,7 @@
                               </tr>
                               <c:forEach items="${userList}" var="user">
                               <tr>
-                                 <td><a href="detail.vhtml?userid=${user.id}">${user.username }</a></td>
+                                 <td><a href="/back/user/${user.id}">${user.username }</a></td>
                                  <td>${user.usernameCn }</td>
                                  <td>${user.createTime }</td>
                                  <td>${user.email }</td>

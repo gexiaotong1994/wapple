@@ -36,11 +36,7 @@ public class CartController {
 		if (loginUser == null) {
 			return Json.fail("请登录后 再添加到购物车");
 		}
-		boolean success = cartService.addCart(loginUser.getId(), productId, num);
-		if (success) {
-			return Json.success("添加购物车成功");
-		}
-		return Json.fail("添加购物车失败");
+		return cartService.addCart(loginUser.getId(), productId, num);
 	}
 
 	@RequestMapping("list")
@@ -48,10 +44,14 @@ public class CartController {
 	public Json<CartVo> list(HttpServletRequest request) {
 		User loginUser = this.userService.loginUser(request);
 		if (loginUser == null) {
-			return Json.fail("请登录后 再添加到购物车");
+			return Json.fail("未登录 请登录后查看");
 		}
-        
-		return null;
+		CartVo cartVo = cartService.list(loginUser.getId());
+		if (cartVo == null) {
+			return Json.fail("购物车为空");
+		}
+
+		return Json.success(cartVo);
 	}
 
 }

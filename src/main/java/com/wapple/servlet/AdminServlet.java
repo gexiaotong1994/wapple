@@ -82,11 +82,7 @@ public class AdminServlet extends HttpServlet {
 		String actionName = uri.substring(15, uri.length());
 		log.info("method:{} uri:{} action:{}", method, uri, actionName);
 		if (actionName.equals("login.vhtml")) {
-			if (GET.equals(method)) {
-				getLogin(request, response);
-			} else {
-				postLogin(request, response);
-			}
+			
 		} else {
 			// 先要判断是否登录
 			/*
@@ -95,21 +91,13 @@ public class AdminServlet extends HttpServlet {
 			 * return; }
 			 */
 			switch (actionName) {
-			case "index.vhtml":
-				getIndex(request, response);
-				break;
-			case "user/list.vhtml":
-				getUserList(request, response);
-				break;
+			
+			
 			case "changeUserStatus.ajax.vhtml":
 				ajaxChangeUserDetail(request, response);
 				break;
-			case "user/userinit.vhtml":
-				getUserNew(request, response);
-				break;
-			case "user/detail.vhtml":
-				getUserDetail(request, response);
-				break;
+			
+			
 			case "upload.vhtml":
 				getUploadImage(request, response);
 				break;
@@ -122,13 +110,7 @@ public class AdminServlet extends HttpServlet {
 				}
 				break;
 
-			case "product/productlist.vhtml":
-				this.getProudctList(request, response);
-				break;
-			case "product/productdetail.vhtml":
-				this.getProductdetail(request, response);
-				break;
-
+		
 			case "product/productupdate.vhtml":
 				this.proudctUpdate(request, response);
 				break;
@@ -152,97 +134,19 @@ public class AdminServlet extends HttpServlet {
 		return new StringBuffer().append("/admin/").append(viewName).append(".jsp").toString();
 	}
 
-	/**
-	 * 登录视图
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void getLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW("login")).forward(request, response);
-	}
-
-	/**
-	 * 处理登录请求
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void postLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String username = HttpServletRequsetUtil.getString(request, "username");
-		String password = HttpServletRequsetUtil.getString(request, "password");
-		String returnUrl = HttpServletRequsetUtil.getString(request, "return_url");
-		Json<User> json = userService.login(username, password);
-		if (!json.isSuccess()) {
-			response.sendRedirect(
-					url(request).append("#").append(URLEncoder.encode(json.getMsg(), "UTF-8")).toString());
-			return;
-		}
-		User user = json.getData();
-		if (user.getRole() != Const.Role.admin) {
-			String notRoleMsg = URLEncoder.encode("没有管理员权限!", "UTF-8");
-			log.info(notRoleMsg);
-			response.sendRedirect(request.getRequestURL().append("#").append(notRoleMsg).toString());
-			return;
-		}
-
-		RedisEnum redisAdmin = RedisEnum.ADMIN_LOGIN;
-		String redisKey = redisAdmin.getKey() + username + System.currentTimeMillis();
-		RedisUtil.setEx(redisKey, JsonUtil.objToString(user), RedisEnum.ADMIN_LOGIN.getExTime());
-		CookieUtil.write(response, CookieEnum.LOGIN_ADMIN.getKey(), redisKey, redisAdmin.getExTime());
-		if (StringUtils.isBlank(returnUrl)) {
-			response.sendRedirect(returnUrl);
-		}
-		response.sendRedirect("index.vhtml");
-
-	}
-
-	protected void getIndex(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW("index")).forward(request, response);
-	}
+	
+	
+	
 
 	protected void getUploadImage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher(VIEW("upload")).forward(request, response);
 	}
 
-	protected void getUserNew(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW("user_new")).forward(request, response);
-	}
+	
 
-	protected void getUserList(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<User> userList = userService.userList();
-		List<UserListVo> userVoList = Lists.newArrayList();
-		for (User user : userList) {
-			UserListVo userListVo = new UserListVo();
-			BeanUtils.copyProperties(user, userListVo);
-			userListVo.setCreateTime(DateTimeUtil.dateToStr(user.getCreateTime()));
-			userListVo.setStatusMsg(UserStatusEnum.getValueByCode(user.getStatus()));
-			userVoList.add(userListVo);
-		}
-		request.setAttribute("userList", userVoList);
-		request.getRequestDispatcher(VIEW("user_list")).forward(request, response);
-	}
 
-	protected void getUserDetail(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int uid = HttpServletRequsetUtil.getInt(request, "userid");
-		if (uid > -1) {
-			User user = userService.getUserByUserId(uid);
-			request.setAttribute("user", user);
-		}
-		request.getRequestDispatcher(VIEW("user_detail")).forward(request, response);
-
-	}
+	
 
 	/**
 	 * 修改用户状态
@@ -311,34 +215,7 @@ public class AdminServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	protected void getProductdetail(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int proudctId = HttpServletRequsetUtil.getInt(request, "productId");
-		Product product = productService.getProductById(proudctId);
-		request.setAttribute("product", product);
-		request.getRequestDispatcher(VIEW("product_detail")).forward(request, response);
-
-	}
-
-	/**
-	 * 获取全部商品类别列表
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void getProudctList(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<Product> products = productService.products();
-		List<ProductListVo> productListVos = Lists.newArrayList();
-		for (Product product : products) {
-			productListVos.add(this.proudctToProductListVo(product));
-		}
-		request.setAttribute("productListVos", productListVos);
-		request.getRequestDispatcher(VIEW("product_list")).forward(request, response);
-
-	}
+	
 
 	protected void proudctUpload(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -400,20 +277,6 @@ public class AdminServlet extends HttpServlet {
 
 	}
 
-	public ProductListVo proudctToProductListVo(Product p) {
-		ProductListVo productListVo = new ProductListVo();
-		BeanUtils.copyProperties(p, productListVo);
-		productListVo.setVname(p.getName().substring(0, 10));
-		productListVo.setCreateTime(DateTimeUtil.dateToStr(p.getCreateTime()));
-		productListVo.setUpdateTime(DateTimeUtil.dateToStr(p.getUpdateTime()));
-		if (StringUtils.equals(p.getMainImage(), "default.jpg")) {
-			productListVo.setImage(false);
-		} else {
-			productListVo.setImage(true);
-		}
 
-		return productListVo;
-
-	}
 
 }

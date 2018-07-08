@@ -19,7 +19,7 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              <a href="productnew.vhtml">商品</a>
+                              <a href="/back/product/new">添加新商品</a>
                           </header>
                           
                           <table class="table table-striped table-advance table-hover">
@@ -36,7 +36,7 @@
                               </tr>
                               <c:forEach items="${productListVos}" var="productListVo">
                               <tr>
-                                 <td><a href="productdetail.vhtml?productId=${productListVo.id}">${productListVo.vname}</a></td>
+                                 <td><a href="/back/product/${productListVo.id}">${productListVo.vname}</a></td>
                                  <td>${productListVo.stock}</td>
                                  <td>${productListVo.price}</td>
                                  <td>${productListVo.sales}</td>

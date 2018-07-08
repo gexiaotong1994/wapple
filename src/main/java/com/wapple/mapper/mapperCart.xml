@@ -29,11 +29,14 @@
 		where `user_id`=#{userId} and `product_id`=#{productId}
 	</select>
 
-	<select id="queryCartListByUserId" resultMap="cartMap">
+	<select id="queryCartListByUserId" resultMap="cartMap" parameterType="int">
 		select
 		<include refid="paramsSql" />
 		from t_cart
 		where `user_id`=#{userId}
 	</select>
 
+	<delete id="delete" parameterType="com.wapple.pojo.Cart">
+		delete from t_cart where id=#{id}
+	</delete>
 </mapper>

@@ -9,6 +9,9 @@ public class CartListVo {
      private int price;
      private int prdouctId;
      private String prdouctName;
+     private int totalPrice;
+     private String image;
+     
      
 
 }
