@@ -3,6 +3,8 @@ package com.wapple.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.RowSetWarning;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -117,6 +119,15 @@ public class CartServiceImpl implements CartService {
 		cartVo.setCountPrice(countPrice);
 
 		return cartVo;
+	}
+
+	@Override
+	public void changeCartNum(int userId, long cartId, int num) {
+
+		int rowCount = this.cartDao.updateCartNumByCartIdAndUserId(num, userId, cartId);
+		if (rowCount > 0) {
+			log.info("购物车数量修改成功");
+		}
 	}
 
 }

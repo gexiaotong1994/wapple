@@ -47,5 +47,16 @@ public interface CartDao {
 	 * @return
 	 */
 	int delete(Cart cart);
+	
+	
+	
+	/**
+	 * 修改购物车中的数据
+	 * @param num
+	 * @param userId
+	 * @param cartId
+	 * @return
+	 */
+	int updateCartNumByCartIdAndUserId(@Param("num") int num,@Param("userId") int userId,@Param("cartId") long cartId);
 
 }

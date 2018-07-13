@@ -18,5 +18,8 @@ public interface ProductDao {
 	Product queryProductByName(String name);
 
 	int updateProduct(Product product);
+	
+	Product queryProductByCnameAndPname(@Param("pname") String productName,@Param("cname") String categoryName);
 
+	
 }

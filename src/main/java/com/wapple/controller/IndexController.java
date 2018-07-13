@@ -30,6 +30,8 @@ public class IndexController {
 	}
 	
 	
+	
+	
 	@RequestMapping("/lin/{par:\\-{3,5}}/")
 	public String index1(Model model) {
 		

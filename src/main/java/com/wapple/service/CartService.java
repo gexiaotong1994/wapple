@@ -23,4 +23,17 @@ public interface CartService {
 	 */
 	CartVo list(int userId);
 
+	/**
+	 * 修改购物车中的数量
+	 * 
+	 * @param userId
+	 * @param cartId
+	 * @param num
+	 * @return
+	 */
+	void changeCartNum(int userId, long cartId, int num);
+	
+	
+	
+
 }

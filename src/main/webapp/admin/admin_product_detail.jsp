@@ -109,19 +109,18 @@
 				stock:$("#stock").val(),
 				price:$("#price").val(),
 				desc:$("#desc").val(),
-				id:$("#pid").val()
 			};
 			
 			$.ajax({
-			   url:"/back/product/"+$("#pid").val(),
+			   url:window.location.href,
 			   type:"put",
 			   dataType:"json",
 			   data:product,
 			   success:function(json){
 				   if(json.success){
-					   
+					   alert(json.data)
 				   }else{
-					   alert("修改失败");
+					   alert(json.msg)
 				   }
 			   }
 			})

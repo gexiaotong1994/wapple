@@ -39,4 +39,9 @@
 	<delete id="delete" parameterType="com.wapple.pojo.Cart">
 		delete from t_cart where id=#{id}
 	</delete>
+	
+	<update id="updateCartNumByCartIdAndUserId">
+	     update t_cart set num=#{num}
+	     where `user_id`=#{userId} and id=#{cartId}
+	</update>
 </mapper>

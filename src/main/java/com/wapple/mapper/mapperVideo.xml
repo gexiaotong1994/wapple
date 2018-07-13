@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wapple.mapper.VideoDao">
+	<resultMap type="com.wapple.pojo.Country" id="countryMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="name_cn" property="nameCn" />
+		<result column="utc" property="utc" />
+	</resultMap>
+
+	<resultMap type="com.wapple.pojo.Language" id="languageMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="name_cn" property="nameCn" />
+	</resultMap>
+
+	<resultMap type="com.wapple.pojo.Company" id="companyMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="name_cn" property="nameCn" />
+		<result column="desc" property="desc" />
+	</resultMap>
+
+	<select id="queryCountryList" resultMap="countryMap">
+		SELECT * FROM t_country
+	</select>
+	
+	<select id="queryLanguageList" resultMap="languageMap">
+		SELECT * FROM t_language
+	</select>
+	
+	<select id="queryCompanyList" resultMap="companyMap">
+		SELECT * FROM t_company
+	</select>
+</mapper>

@@ -11,8 +11,9 @@ import com.wapple.pojo.Category;
 public interface CategoryMapper {
 
 	@Select("select * from t_category")
-  	List<Category> queryList();
-	
-	
+	List<Category> queryList();
+
+	@Select("select name from t_category")
+	String[] queryNames();
 
 }

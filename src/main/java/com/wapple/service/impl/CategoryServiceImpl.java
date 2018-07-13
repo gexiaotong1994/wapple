@@ -11,16 +11,20 @@ import com.wapple.service.CategoryService;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
-	
+
 	@Autowired
 	CategoryMapper categoryMapper;
 
 	@Override
 	public List<Category> list() {
-		
+
 		return categoryMapper.queryList();
 	}
-	
-	
+
+	@Override
+	public String[] categroys() {
+		// TODO Auto-generated method stub
+		return categoryMapper.queryNames();
+	}
 
 }

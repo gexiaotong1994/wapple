@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.wapple.common.Json;
 import com.wapple.pojo.Product;
 import com.wapple.pojo.User;
+import com.wapple.pojo.UserIndex;
 
 public interface UserService {
 
@@ -18,7 +19,7 @@ public interface UserService {
 	 * @param password
 	 * @return
 	 */
-	Json<User> login(String username, String password);
+	Json<UserIndex> login(String username, String password);
 
 	/**
 	 * 新增用户
@@ -26,7 +27,7 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	void register(User user);
+	void register(UserIndex userIndex);
 
 	/**
 	 * 验证各类值在数据库中是否存在

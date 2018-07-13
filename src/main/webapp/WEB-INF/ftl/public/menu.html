@@ -2,10 +2,10 @@
 	<div class="header-top">
 		<div class="container">
 			<div class="search">
-					<form action="/search">
-						<input type="text"  name="v" >
-						<input type="submit" value="搜索">
-					</form>
+					
+						<input type="text"  name="v" id="search-input" >
+						<input type="submit" value="搜索" id="search-1">
+					
 			</div>
 			<div class="header-left">		
 					<ul>
@@ -31,9 +31,12 @@
 				</div>
 		  <div class=" h_menu4">
 				<ul class="memenu skyblue">
-					  <li class="active grid"><a class="color8" href="/">主页</a></li>	
-				      <li><a class="color4" href="/product/category/notebook/">电脑</a></li>				
-				      <li><a class="color6" href="/product/category/phone/">手机</a></li>  
+					  <li class="active grid"><a class="color8" href="/tv/">电影</a></li>	
+				      <li><a class="color4" href="/movie/">电视剧</a></li>				
+				      <li><a class="color6" href="/live/">直播</a></li>
+				      <li><a class="color6" href="/sprot/">体育</a></li>
+				      <li><a class="color6" href="/live/">综艺</a></li>
+				      <li><a class="color6" href="/triver/">游记</a></li>      
 				    <li class="grid"><a class="color2" href="javascript:void(0);">实体零售</a>
 					  	<div class="mepanel">
 						<div class="row">
@@ -49,7 +52,7 @@
 								<div class="h_nav">
 									<ul>
 										<li><a href="products.html">Shirts</a></li>
-										<li><a href="products.html">Shoes, Boots & Trainers</a></li>
+										<li><a href="products.html">jtl</a></li>
 									</ul>	
 								</div>							
 							</div>
@@ -66,11 +69,20 @@
 
 	</div>
 <script>
+  $("#search-1").click(function(){
+	    var input_val=$("#search-input").val().trim();
+	    if(input_val){
+	    var encode_val=	encodeURIComponent(input_val);
+	    window.location.href="/search/"+encode_val;
+		return;
+	    }
+  });
+  
   $.get("/user/check_login",{},function(json){
 	      if(json.success){
-	    	 $("#login-li").html('<a href="/myaccount/">'+json.data+' 个人主页</a>');
+	    	 $("#login-li").html('<a href="/account/">'+json.data+' 个人主页</a>');
 	     }else{
-	    	 $("#login-li").html('<a href="javascript:;" onclick="login1();">登录</a>');
+	    	 $("#login-li").html('<a href="/viewpage/accountcenter/login.html">登录</a>');
 	     }
   });//decodeURIComponent(
   function login1(){
@@ -82,4 +94,6 @@
 	  url=encodeURIComponent(url);
 	  window.location.href="/wappleid/login?backurl="+url;
   }
+  
+  
 </script>

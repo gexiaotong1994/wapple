@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WAPPLE</title>
+<#include "public/head.html" />
+</head>
+<body>
+	<!--header-->
+	<#include "public/menu.html" />
+
+
+
+	<div class="container">
+		<div class="account">
+			<h1>请选择取货方式</h1>
+			<div class="account-pass">
+				<div class="col-md-8 account-top">
+				 
+						<div>
+							<span>wappleid</span> 
+							 <input type="hidden" value="${totalPrice}" id="totalPrice">
+							 <h4><input type="radio" name="t" value="1">快递送达(100-500快递费用  3-7天送达 )</h4><br><br>
+							 <h4><input type="radio" name="t" value="2">门店自取[指定](不收取额外费用 将购物车中的全部商品打包  不可试机)</h4><br><br>
+							 <h4><input type="radio" name="t" value="3">门店自取[全局](不收取额外费用   可在任何店中提取 可试机)</h4>   
+						</div>
+						
+						<input type="submit" value="下一步"> 
+				</div>
+			<!-- 	<div class="col-md-4 left-account ">
+					<a href="single.html"><img class="img-responsive "
+						src="/images/login_img.png" alt=""></a>
+					<div class="five">
+						<h2>25%</h2>
+						<span>discount</span>
+					</div>
+					<div class="clearfix"></div>
+				</div> -->
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+	</div>
+	<#include "public/footer.html" />
+	<script type="text/javascript" src="/script/login.js"></script>
+</body>
+</html>

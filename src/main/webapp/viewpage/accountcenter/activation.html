@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+<title>激活账户</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet"
+	type="text/css">
+<link href="css/templatemo_style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="templatemo-bg-gray">
+	<div class="container">
+		<div class="col-md-12">
+			<h1 class="margin-bottom-15">激活账户</h1>
+			<form
+				class="form-horizontal templatemo-forgot-password-form templatemo-container"
+				role="form" action="#" method="post" onsubmit="return false;">
+				<div class="form-group">
+					<div class="col-md-12">验证码已经发送到手机 请注意查收</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="num_code"
+							placeholder="4位数字验证码">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<input type="submit" value="确认" class="btn btn-success" id="tijiao">
+						<br>
+						<br>
+
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+		<script src="/js/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+	   var url=window.location.href;
+	   var username=url.split("username=")[1];
+	   $("#tijiao").click(function(){
+		   $.get("/user/activation",{code:$("#num_code").val(),username:username},function(json){
+			     if(json.success){
+			    	 alert(json.data);
+			    	 window.location.href='login.html';
+			     }else{
+			    	 alert(json.msg);
+			     }
+		   });
+	   });
+	</script>
+</body>
+</html>

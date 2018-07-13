@@ -28,7 +28,9 @@ public class CartController {
 
 		return "cart";
 	}
-
+	
+	
+    
 	@RequestMapping("add")
 	@ResponseBody
 	public Json<String> add(HttpServletRequest request, Integer productId, int num) {
@@ -37,6 +39,17 @@ public class CartController {
 			return Json.fail("请登录后 再添加到购物车");
 		}
 		return cartService.addCart(loginUser.getId(), productId, num);
+	}
+
+	@RequestMapping("change_num")
+	@ResponseBody
+	public Json<CartVo> changeNum(HttpServletRequest request, long cartId, int num) {
+		User loginUser = this.userService.loginUser(request);
+		if (loginUser == null) {
+			return Json.fail("购物车相关操作请登录");
+		}
+		cartService.changeCartNum(loginUser.getId(), cartId, num);
+		return this.list(request);
 	}
 
 	@RequestMapping("list")
@@ -53,5 +66,7 @@ public class CartController {
 
 		return Json.success(cartVo);
 	}
+	
+   
 
 }

@@ -32,7 +32,8 @@
                                  <th>创建时间</th>
                                  <th>修改时间</th>
                                  <th>首页图</th>
-                                 <th>操作</th>
+                                 <th>删除</th>
+                                 
                               </tr>
                               <c:forEach items="${productListVos}" var="productListVo">
                               <tr>
@@ -54,7 +55,7 @@
                                 </td>
                                  <td>
                                   <div class="btn-group">
-                                      <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                                      <a class="btn btn-danger" href="javascript:f_delete(${productListVo.id});"><i class="icon_close_alt2"></i></a>
                                   </div>
                                   
                                   </td>
@@ -86,10 +87,28 @@
 	
 		$(".knob").knob();
 		function upload_image(pid){
-		    var url="/servlet/admin/upload.vhtml?type=product_main_image&productId="+pid;
+		    var url="/back/upload/"+pid;
 			var name='商品文件主图上传';
 			var params='height=500, width=500';
 		    window.open(url,name,params);
+		}
+		function f_delete(productId){
+			var cong=confirm("确认删除编号["+productId+"]的商品");
+			if(cong){
+				$.ajax({
+					url:"/back/product/"+productId,
+				    type:"detele",
+				    dataType:"json",
+				    success:function(json){
+				    	if(json.success){
+				    		alert(json.data);
+				    	}else{
+				    		alert(json.msg);
+				    	}
+				    
+				    }
+				});
+			}
 		}
 	</script>
 

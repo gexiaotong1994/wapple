@@ -83,7 +83,8 @@
 		LEFT JOIN
 		t_category c
 		ON p.`category_id` = c.`id`
-		where p.`id`=#{id}
+		where
+		p.`id`=#{id}
 	</select>
 
 	<select id="queryProductByName" resultMap="productMap">
@@ -107,6 +108,13 @@
 		ON p.`category_id` = c.`id`
 		where
 		p.`name`=#{name}
+	</select>
+
+	<select id="queryProductByCnameAndPname" resultMap="productMap" >
+		SELECT p.* FROM t_product p
+		LEFT JOIN t_category c
+		ON p.`category_id`=c.`id`
+		WHERE c.`name`=#{cname} AND p.`name`=#{pname}
 	</select>
 
 	<update id="updateProduct" parameterType="com.wapple.pojo.Product">
