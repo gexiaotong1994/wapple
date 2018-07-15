@@ -1,5 +1,7 @@
 package com.wapple.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -15,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.common.collect.Lists;
 import com.wapple.bo.ProductBo;
@@ -24,6 +28,7 @@ import com.wapple.enums.UserStatusEnum;
 import com.wapple.pojo.Product;
 import com.wapple.pojo.User;
 import com.wapple.pojo.UserIndex;
+import com.wapple.pojo.Video;
 import com.wapple.service.ProductService;
 import com.wapple.service.UserService;
 import com.wapple.service.VideoService;
@@ -35,7 +40,7 @@ import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 
 @Controller
 @RequestMapping("/back/")
-public class AdminController {
+public class BackController {
 
 	@Autowired
 	public ProductService productService;
@@ -103,12 +108,86 @@ public class AdminController {
 		return view("index");
 	}
 
-	@RequestMapping("video/new")
+	@RequestMapping(value = "video/new", method = RequestMethod.GET)
 	public String viewNew(Model model) {
+		// 所属国家
 		model.addAttribute("countrys", videoService.getCountryList());
+		// 影片语言 字幕语言
 		model.addAttribute("languages", videoService.getLanguageList());
+		// 视频初品公司
 		model.addAttribute("companys", videoService.getCompanyList());
+		// 视频大类
+		model.addAttribute("videoTypes", videoService.getVideoTypeList());
+		// 视频小类
+		model.addAttribute("videoMillTypes", videoService.getVideoMillTypeList());
 		return view("video_new");
+	}
+
+	/**
+	 * 处理新增视频的请求
+	 * @param model
+	 * @param name
+	 * @param nameCn
+	 * @param videoTypeId
+	 * @param countryId
+	 * @param companyId
+	 * @param director
+	 * @param actor
+	 * @param season
+	 * @param episode
+	 * @param jf
+	 * @param vipLevel
+	 * @param languageArr
+	 * @param subtitleArr
+	 * @param videoMillTypeArr
+	 * @param start
+	 * @param weight
+	 * @param desc
+	 * @param mainImageFile
+	 * @return
+	 */
+	@RequestMapping(value = "video/tv/new", method = RequestMethod.POST)
+	public String viewNew(Model model, String name, String nameCn, Integer videoTypeId, Integer countryId,
+			Integer companyId, String director, String actor, Integer season, Integer episode, Integer jf,
+			Integer vipLevel, Integer[] languageArr, Integer[] subtitleArr, Integer[] videoMillTypeArr, Integer start,
+			Integer weight, String desc, @RequestParam("mainImageFile") CommonsMultipartFile mainImageFile) {
+
+		Video video = new Video();
+		video.setName(name.toLowerCase());
+		video.setNameCn(nameCn);
+		video.setType(videoTypeId);
+		video.setCountryId(countryId);
+		video.setCompanyId(companyId);
+		video.setDirector(director);
+		video.setActor(actor);
+		video.setSeason(season);
+		video.setEpisode(episode);
+		video.setJf(jf);
+		video.setVipLevel(vipLevel);
+		video.setStart(start);
+		video.setWeight(weight);
+		video.setDesc(desc);
+		String languString = this.intArrToString(languageArr);
+		String subjetString = this.intArrToString(subtitleArr);
+		String videoMillType = this.intArrToString(videoMillTypeArr);
+		video.setLanguageIds(languString);
+		video.setSubtitles(subjetString);
+		video.setMtypes(videoMillType);
+		//开始处理图片 写入到服务器中
+	    String filePath="E:\\web\\img\\"+mainImageFile.getOriginalFilename();
+	    File file=new File(filePath);
+	    video.setMainImage(mainImageFile.getOriginalFilename());
+	    try {
+			mainImageFile.transferTo(file);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	    videoService.saveVideo(video);
+		System.out.println(name);
+         
+		//TODO//ubunt 
+		return "redirect:/back/video/new";
 	}
 
 	@RequestMapping(value = "product", method = RequestMethod.GET)
@@ -178,6 +257,14 @@ public class AdminController {
 		}
 		return productListVo;
 
+	}
+
+	private String intArrToString(Integer[] arr) {
+		StringBuffer sbf = new StringBuffer();
+		for (int i : arr) {
+			sbf.append(i).append(",");
+		}
+		return sbf.toString().substring(0,sbf.toString().length() - 1);
 	}
 
 }

@@ -4,12 +4,15 @@
 	version="3.0">
 
 
+
+
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:shiro.xml</param-value>
+		<param-value>classpath:root-spring.xml</param-value>
 	</context-param>
 
 
@@ -84,5 +87,6 @@
 		<filter-name>HttpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
 
 </web-app>

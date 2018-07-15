@@ -7,13 +7,21 @@
 		<result column="name_cn" property="nameCn" />
 		<result column="utc" property="utc" />
 	</resultMap>
-
+	<resultMap type="com.wapple.pojo.VideoMillType" id="videoMillTypeMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="name_cn" property="nameCn" />
+	</resultMap>
 	<resultMap type="com.wapple.pojo.Language" id="languageMap">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="name_cn" property="nameCn" />
 	</resultMap>
-
+	<resultMap type="com.wapple.pojo.VideoType" id="videoTypeMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="name_cn" property="nameCn" />
+	</resultMap>
 	<resultMap type="com.wapple.pojo.Company" id="companyMap">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
@@ -24,12 +32,48 @@
 	<select id="queryCountryList" resultMap="countryMap">
 		SELECT * FROM t_country
 	</select>
-	
+
 	<select id="queryLanguageList" resultMap="languageMap">
-		SELECT * FROM t_language
+		SELECT * FROM
+		t_language
 	</select>
-	
+	<select id="queryVideoTypeList" resultMap="videoTypeMap">
+		select * from
+		t_video_type
+	</select>
 	<select id="queryCompanyList" resultMap="companyMap">
 		SELECT * FROM t_company
 	</select>
+	<select id="queryVideoMillTypeList" resultMap="videoMillTypeMap">
+		select * from
+		t_video_mill_type
+
+	</select>
+	<insert id="insertVideo" parameterType="com.wapple.pojo.Video">
+		insert into
+		t_video(`name`,name_cn,title,jf,`type`,m_type_s,company_id,director,actor,season,episode,vip_level,main_image,sub_image,language_id_s,subtitle_s,country_id,`start`,weight,`desc`)
+		value(
+		#{video.name},
+		#{video.nameCn},
+		#{video.title},
+		#{video.jf},
+		#{video.type},
+		#{video.mtypes},
+		#{video.companyId},
+		#{video.director},
+		#{video.actor},
+		#{video.season},
+		#{video.episode},
+		#{video.vipLevel},
+		#{video.mainImage},
+		#{video.subImage},
+		#{video.languageIds},
+		#{video.subtitles},
+		#{video.countryId},
+		#{video.start},
+		#{video.weight},
+		#{video.desc}
+		)
+
+	</insert>
 </mapper>
