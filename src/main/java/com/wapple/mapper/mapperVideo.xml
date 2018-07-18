@@ -29,6 +29,40 @@
 		<result column="desc" property="desc" />
 	</resultMap>
 
+
+	<resultMap type="com.wapple.pojo.Video" id="videoMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="name_cn" property="nameCn" />
+		<result column="title" property="title" />
+		<result column="jf" property="jf" />
+		<result column="type" property="type" />
+		<result column="m_type_s" property="mtypes" />
+		<result column="company_id" property="companyId" />
+		<result column="director" property="director" />
+		<result column="actor" property="actor" />
+		<result column="season" property="season" />
+		<result column="episode" property="episode" />
+		<result column="vip_level" property="vipLevel" />
+		<result column="main_image" property="mainImage" />
+		<result column="sub_image" property=" subImage" />
+		<result column="language_id_s" property="languageIds" />
+		<result column="subtitle_s" property="subtitles" />
+		<result column="country_id" property="countryId" />
+		<result column="start" property="start" />
+		<result column="status" property="status" />
+		<result column="weight" property="weight " />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="desc" property="desc" />
+		<association property="videoType" javaType="com.wapple.pojo.VideoType">
+			<result column="" />
+		</association>
+	</resultMap>
+
+
+
+
 	<select id="queryCountryList" resultMap="countryMap">
 		SELECT * FROM t_country
 	</select>
@@ -76,4 +110,82 @@
 		)
 
 	</insert>
+
+	<select id="queryVideoList" resultType="com.wapple.pojo.VideoList">
+		SELECT
+		v.`id`,
+		v.`name`,
+		v.`name_cn` nameCn,
+		v.`season`,
+		v.`type`,
+		v.`m_type_s` mtypes,
+		v.`main_image` image
+		FROM
+		t_video v
+	</select>
+
+	<select id="queryMillNameCnById" resultType="java.lang.String">
+		SELECT name_cn FROM
+		t_video_mill_type WHERE id=#{id}
+	</select>
+
+	<select id="queryTypeNameCnById" resultType="java.lang.String">
+		SELECT name FROM
+		t_video_type WHERE id=#{id}
+	</select>
+
+	<select id="countVideoByNameAndType" resultType="int">
+		SELECT COUNT(1) FROM
+		t_video WHERE `name`=#{name} AND `type`=#{type}
+	</select>
+
+	<select id="queryVideoByParams" resultMap="videoMap">
+		SELECT
+		v.id,
+		v.`name`,
+		v.name_cn,
+		v.title,
+		v.jf,
+		v.`type`,
+		v.m_type_s,
+		v.company_id,
+		v.director,
+		v.actor,
+		v.season,
+		v.episode,
+		v.vip_level,
+		v.main_image,
+		v.sub_image,
+		v.language_id_s,
+		v.subtitle_s,
+		v.country_id,
+		v.`start`,
+		v.`status`,
+		v.weight,
+		v.create_time,
+		v.update_time,
+		v.`desc`,
+		t.`name` type_name,
+		t.`name_cn` type_name_cn
+		FROM
+		t_video v
+		LEFT JOIN
+		t_video_type t
+		ON v.`type`=t.id
+		WHERE 1=1
+		<if test="params.name!=null">
+			AND v.`name`=#{params.name}
+		</if>
+		<if test="params.videoType.name!=null">
+			AND t.`name`=#{params.videoType.name}
+		</if>
+		<if test="params.videoType.id!=null">
+			AND t.`id`=#{params.videoType.id}
+		</if>
+		<if test="params.season!=null">
+			AND v.season=#{params.season}
+		</if>
+
+	</select>
+
 </mapper>

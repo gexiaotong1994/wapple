@@ -16,5 +16,9 @@ CREATE TABLE t_wap_user(
  )
  
  
- 
- 
+查询出所有的类名 纵列 
+SELECT column_name FROM information_schema.columns WHERE table_name='t_video';
+
+查询出所有字段名 横列
+SELECT GROUP_CONCAT(COLUMN_NAME SEPARATOR ",") FROM information_schema.COLUMNS 
+WHERE TABLE_SCHEMA = 'wapple' AND TABLE_NAME = 't_video'

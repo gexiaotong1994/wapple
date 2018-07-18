@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>wapple主页</title>
+<#include "pub_head.html" />
+</head>
+<body>
+<#include "pub_header.html" />
+<div class="index_slider">
+	<div class="container">
+	  <div class="callbacks_container">
+	      <ul class="rslides" id="slider">
+	       <!-- banner 首页轮播图 -->
+	        <li><img src="/ftl/images/1200.jpg" class="img-responsive" alt=""/></li>
+	        
+	      </ul>
+	  </div>
+	</div> 
+</div>
+<div class="content_top">
+	<div class="container">
+
+		<div class="column_center">
+			<h1>1 of the most Beautiful online store </h1>
+			<h2>Clothes is one of the word'd leading E-commerce companies that designs and develops online stores</h2>
+		</div>
+		<div class="sellers_grid">
+			<ul class="sellers">
+				<i class="star"> </i>
+				<li class="sellers_desc"><h2>Best Sellers</h2></li>
+				<div class="clearfix"> </div>
+			</ul>
+		</div><!--  -->
+		<div class="grid_2">
+		 <#list videoListVos as videoListVo>
+			<div class="col-md-3 span_6">
+			  <div class="box_inner">
+				<a href="/${videoListVo.url}/"><img src="/ftl/images/vimage/${videoListVo.image}" class="img-responsive" alt="" /></a>
+				 <div class="sale-box"> </div>
+				 <div class="desc">
+				 	<h3>${videoListVo.nameCn}</h3>
+				 	<h4>${videoListVo.mtypeStr}</h4>
+				 	<ul class="list2">
+				 	  <li class="list2_left"><span class="m_1"><a href="#" class="link">Add to Cart</a></span></li>
+				 	  <li class="list2_right"><span class="m_2"><a href="#" class="link1">See More</a></span></li>
+				 	  <div class="clearfix"> </div>
+				 	</ul>
+				 	<div class="heart"> </div>
+				 </div>
+			   </div>
+			</div>
+		 </#list>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+ 
+    <div class="content_bottom">
+    	<div class="col-md-3 span_1">
+    	  <ul class="spinner">
+			 <i class="box_icon"> </i>
+			 <li class="spinner_head"><h3>mazim pla</h3></li>
+			 <div class="clearfix"> </div>
+		  </ul>
+		  <img src="/ftl/images/t8.jpg" class="img-responsive" alt=""/>
+    	</div>
+    	<div class="col-md-3 span_1">
+    	  <ul class="spinner">
+			 <i class="bubble"> </i>
+			 <li class="spinner_head"><h3>About Us</h3></li>
+			 <div class="clearfix"> </div>
+		  </ul>
+		  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat</p>
+    	</div>
+    	<div class="col-md-3 span_1">
+    	  <ul class="spinner">
+			 <i class="mail"> </i>
+			 <li class="spinner_head"><h3>Contact Us</h3></li>
+			 <div class="clearfix"> </div>
+		  </ul>
+		 <ul class="social">
+			<li><a href=""> <i class="fb"> </i> </a></li>
+		    <li><a href=""><i class="tw"> </i> </a></li>
+			<li><a href=""><i class="google"> </i> </a></li>
+			<li><a href=""><i class="linkedin"> </i> </a></li>
+			<li><a href=""><i class="skype"> </i> </a></li>
+		</ul>
+    	</div>
+    	<div class="col-md-3 span_1">
+    	  <ul class="spinner">
+			 <i class="mail"> </i>
+			 <li class="spinner_head"><h3>Contact Us</h3></li>
+			 <div class="clearfix"> </div>
+		  </ul>
+		  <p>500 Lorem Ipsum Dolor Sit,</p>
+		  <p>22-56-2-9 Sit Amet, Lorem,</p>
+		  <p>Phone:(00) 222 666 444</p>
+		  <p><a href="mailto:info@demo.com"> info(at)gifty.com</a></p>
+    	</div>
+    	<div class="clearfix"> </div>
+    </div>
+</div>
+<#include "pub_footer.html" />
+</body>
+</html>		

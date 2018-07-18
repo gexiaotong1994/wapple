@@ -55,8 +55,8 @@
 			<li><a class="" href="/back/user">
 					<span>用户管理</span>
 			</a></li>
-		     <li><a class="" href="/back/menu">
-					<span>菜单管理</span>
+		     <li><a class="" href="/back/video/list">
+					<span>视频管理</span>
 			</a></li>
              <li><a class="" href="/back/product">
 					<span>商品管理</span>

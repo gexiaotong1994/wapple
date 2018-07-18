@@ -21,12 +21,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
      
-	@RequestMapping("/{cname}-{pname}-{pnu}")
-	public String detail(Model model) {
-		//Product product = productService.getProductByProductNameAndCategoryName(pname, categroy1);
-		//model.addAttribute("product", product);
-		return "product-detail";
-	}
+	
 	
 	
 	

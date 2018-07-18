@@ -16,6 +16,8 @@ public class AccountController {
 	private static final String view(String viewName) {
 		return new StringBuffer("account/").append(viewName).toString();
 	}
+	
+	
 	@RequestMapping
 	public String index() {
 		

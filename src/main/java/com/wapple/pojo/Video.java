@@ -34,6 +34,11 @@ public class Video {
 	private Date createTime;
 	private Date updateTime;
 	private String desc;
+	//一对一
+	private VideoType videoType;
+	
+	
+	
 	
 	
 
