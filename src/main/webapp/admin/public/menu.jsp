@@ -52,26 +52,26 @@
 		   <li><a href="/back/index">
 					<span>后台主页</span>
 			</a></li>
-			<li><a class="" href="/back/user">
+			<li><a class="" href="/back/users/">
 					<span>用户管理</span>
 			</a></li>
-		     <li><a class="" href="/back/video/list">
+		     <li><a class="" href="/back/videos/">
 					<span>视频管理</span>
 			</a></li>
-             <li><a class="" href="/back/product">
+             <li><a class="" href="/back/products/">
 					<span>商品管理</span>
 			</a></li>
 	
-			<li class="sub-menu"><a href="javascript:;" class=""><span>Pages</span>
+			<li class="sub-menu"><a href="javascript:;" class=""><span>视频其他管理</span>
 			</a>
 				<ul class="sub">
-					<li><a class="" href="profile.html">Profile</a></li>
-					<li><a class="" href="login.html"><span>Login Pag2</span></a></li>
-					<li><a class="" href="blank.html">Blank Page</a></li>
+					<li><a class="" href="/back/video-types/">视频大类</a></li>
+					<li><a class="" href="/back/video-mill-types/"><span>视频次类</span></a></li>
+					<li><a class="" href="/back/video-countrys/">Blank Page</a></li>
 					<li><a class="" href="404.html">404 Error</a></li>
 				</ul></li>
-
-		</ul>
+        
+		</ul>  <!-- goho basdk maldlcmldsjd -->
 		<!-- sidebar menu end-->
 	</div>
 </aside>

@@ -11,5 +11,6 @@ public class VideoList {
 	private String mtypes;// 小雷
 	private int season;
 	private String image;
+	private String tname;
 
 }

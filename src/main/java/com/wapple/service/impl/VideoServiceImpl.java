@@ -6,11 +6,13 @@ import java.util.List;
 import org.aspectj.weaver.patterns.PerSingleton;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.wapple.bo.VideoParams;
 import com.wapple.mapper.ProductDao;
 import com.wapple.mapper.VideoDao;
+import com.wapple.params.VideoListParams;
 import com.wapple.pojo.Company;
 import com.wapple.pojo.Country;
 import com.wapple.pojo.Language;
@@ -21,6 +23,7 @@ import com.wapple.pojo.VideoMillType;
 import com.wapple.pojo.VideoType;
 import com.wapple.service.VideoService;
 import com.wapple.vo.VideoListVo;
+import com.wapple.vo.VideoVo;
 
 import freemarker.core._RegexBuiltins.replace_reBI;
 import lombok.val;
@@ -35,31 +38,27 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public List<Country> getCountryList() {
-		// TODO Auto-generated method stub
+
 		return videoDao.queryCountryList();
 	}
 
 	@Override
 	public List<Language> getLanguageList() {
-		// TODO Auto-generated method stub
 		return videoDao.queryLanguageList();
 	}
 
 	@Override
 	public List<Company> getCompanyList() {
-		// TODO Auto-generated method stub
 		return videoDao.queryCompanyList();
 	}
 
 	@Override
 	public List<VideoType> getVideoTypeList() {
-		// TODO Auto-generated method stub
 		return videoDao.queryVideoTypeList();
 	}
 
 	@Override
 	public List<VideoMillType> getVideoMillTypeList() {
-		// TODO Auto-generated method stub
 		return videoDao.queryVideoMillTypeList();
 	}
 
@@ -109,23 +108,83 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.queryVideoByTypeAndNameAndSeason(type, name, season);
 	}
 
-	
-	
 	@Override
 	public Video getNextVideoToNameAndType(String videoName, int type) {
 		int rowCount = videoDao.countVideoByNameAndType(videoName, type);
 		VideoParams params = new VideoParams(type);
 		params.setName(videoName);
-        params.setSeason(rowCount);
-        Video video=videoDao.queryVideoByParams(params);
-        if (video!=null) {
-			video.setSeason(rowCount+1);
+		params.setSeason(rowCount);
+		Video video = videoDao.queryVideoByParams(params);
+		if (video != null) {
+			video.setSeason(rowCount + 1);
 		}
 		return video;
 
 	}
+
+	@Override
+	public boolean delete(long id) {
+
+		return videoDao.del(id) == 1;
+	}
+
+	@Override
+	public List<VideoList> getVideoListByParams(VideoListParams params) {
+		return videoDao.queryVideoListByParams(params);
+
+	}
+
+	@Override
+	public VideoVo getVideoDetail(String tname, String name, Integer season) {
+		VideoParams params = new VideoParams(tname);
+		params.setName(name);
+		params.setSeason(season);
+		Video video = videoDao.queryVideoByParams(params);
+		if (video == null) {
+			// TODO 后期抛出异常
+			return null;
+		}
+
+		return this.videoToVideoVo(video);
+	}
 	
 	
+	 
 	
 
-} 
+	private VideoVo videoToVideoVo(Video video) {
+		VideoVo videoVo = new VideoVo();
+		BeanUtils.copyProperties(video, videoVo);
+		// 获取大类名
+		int typeId = video.getType();
+		String typeStr = videoDao.queryTypeNameCnById(typeId);
+		videoVo.setTypeStr(typeStr);
+		// 获取小类 集合
+		String mtypeString = this.millIdsToString(video.getMtypes());
+		videoVo.setMtypesStr(mtypeString);
+		String countryStr = videoDao.queryCountryNameCnById(video.getCountryId());
+		videoVo.setCountryStr(countryStr);
+		String[] lanArr = video.getLanguageIds().split(",");
+		StringBuffer lanBuffer = new StringBuffer();
+		for (String lan : lanArr) {
+			String lanStr = videoDao.queryLanNameCnById(Integer.parseInt(lan));
+			lanBuffer.append(lanStr).append(",");
+		}
+		String lansString = lanBuffer.toString();
+		videoVo.setLanguageIdsStr(lansString.substring(0, lansString.length() - 1));
+		String[] subArr = video.getSubtitles().split(",");
+		StringBuffer subBuffer = new StringBuffer();
+		for (String lan : subArr) {
+			String lanStr = videoDao.queryLanNameCnById(Integer.parseInt(lan));
+			subBuffer.append(lanStr).append(",");
+		}
+		String subsString = subBuffer.toString();
+		videoVo.setSubtitlesStr(subsString.substring(0, subsString.length() - 1));
+		String companyName = videoDao.queryCompanyNameCnById(video.getCompanyId());
+		videoVo.setCompanyStr(companyName);
+		List<Integer> sesasons= videoDao.querySeasonListByVideoName(video.getName());
+		videoVo.setSeasonList(sesasons);
+		return videoVo;
+	}
+
+}

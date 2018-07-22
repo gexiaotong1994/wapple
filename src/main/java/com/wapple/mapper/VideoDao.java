@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.wapple.bo.VideoParams;
+import com.wapple.params.VideoListParams;
 import com.wapple.pojo.Company;
 import com.wapple.pojo.Country;
 import com.wapple.pojo.Language;
@@ -98,12 +99,62 @@ public interface VideoDao {
 	 * @param name
 	 * @return
 	 */
-	int countVideoByNameAndType(@Param("name") String name,@Param("type") int type);
-	
-	    
-	
-	Video queryVideoByParams(@Param("params") VideoParams videoParams);
-	
-	
+	int countVideoByNameAndType(@Param("name") String name, @Param("type") int type);
 
+	/**
+	 * 通过实体参数 进行查询
+	 * 
+	 * @param videoParams
+	 * @return
+	 */
+	Video queryVideoByParams(@Param("params") VideoParams videoParams);
+
+	/**
+	 * 根据主键删除视频
+	 * 
+	 * @param id
+	 * @return
+	 */
+	int del(@Param("id") long id);
+
+	/**
+	 * 根据参数实体查询
+	 * 
+	 * @param videoListParams
+	 * @return
+	 */
+	List<VideoList> queryVideoListByParams(@Param("params") VideoListParams videoListParams);
+
+	/**
+	 * 根据id获取国家中文名
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String queryCountryNameCnById(@Param("id") int id);
+
+	/**
+	 * 根据id获取语言中文名
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String queryLanNameCnById(@Param("id") int id);
+
+	/**
+	 * 根据id获取出品公司名
+	 * 
+	 * @param id
+	 * @return
+	 */
+	String queryCompanyNameCnById(@Param("id") int id);
+	
+	
+	
+	/**
+	 * 根据视频名查出所有的技术了班的 卡拉拉裤，
+	 * @param name
+	 * @return
+	 */
+	List<Integer> querySeasonListByVideoName(@Param("name") String name);
 }

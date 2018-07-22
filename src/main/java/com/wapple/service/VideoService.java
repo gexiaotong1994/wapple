@@ -2,6 +2,7 @@ package com.wapple.service;
 
 import java.util.List;
 
+import com.wapple.params.VideoListParams;
 import com.wapple.pojo.Company;
 import com.wapple.pojo.Country;
 import com.wapple.pojo.Language;
@@ -10,6 +11,7 @@ import com.wapple.pojo.VideoList;
 import com.wapple.pojo.VideoMillType;
 import com.wapple.pojo.VideoType;
 import com.wapple.vo.VideoListVo;
+import com.wapple.vo.VideoVo;
 
 public interface VideoService {
 
@@ -75,6 +77,32 @@ public interface VideoService {
 	 * @param type
 	 * @return
 	 */
-	 Video getNextVideoToNameAndType(String videoName, int type);
+	Video getNextVideoToNameAndType(String videoName, int type);
+
+	/**
+	 * 根据主键删除视频
+	 * 
+	 * @param id
+	 * @return
+	 */
+	boolean delete(long id);
+
+	/**
+	 * 根据条件获取视频列表
+	 * 
+	 * @param params
+	 * @return
+	 */
+	List<VideoList> getVideoListByParams(VideoListParams params);
+
+	/**
+	 * 通过三个参数获取视频的实体
+	 * 
+	 * @param tname
+	 * @param name
+	 * @param season
+	 * @return
+	 */
+	VideoVo getVideoDetail(String tname, String name, Integer season);
 
 }

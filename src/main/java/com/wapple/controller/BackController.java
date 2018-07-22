@@ -49,7 +49,7 @@ import com.wapple.vo.VideoListVo;
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 
 @Controller
-@RequestMapping("/back/")
+@RequestMapping("/back")
 public class BackController {
 
 	@Autowired
@@ -65,7 +65,7 @@ public class BackController {
 		return new StringBuffer().append("forward:").append("/admin/admin_").append(viewName).append(".jsp").toString();
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return view("login");
 	}
@@ -77,7 +77,7 @@ public class BackController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "product/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public Json<String> productUpdate(ProductBo productBo, @PathVariable("id") int id) {
 		boolean suc = productService.modifyProductByProductId(productBo, id);
@@ -94,14 +94,14 @@ public class BackController {
 	 * @param productId
 	 * @return
 	 */
-	@RequestMapping(value = "product/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public Json<String> productDetail(@PathVariable("id") int productId) {
 		System.out.println();
 		return Json.fail();
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String password, String returnUrl) throws UnsupportedEncodingException {
 		Json<UserIndex> json = userService.login(username, password);
 		if (!json.isSuccess()) {
@@ -118,7 +118,7 @@ public class BackController {
 		return view("index");
 	}
 
-	@RequestMapping(value = "video/new", method = RequestMethod.GET)
+	@RequestMapping(value = "/videos/new", method = RequestMethod.GET)
 	public String viewNew(Model model) {
 		// 所属国家
 		model.addAttribute("countrys", videoService.getCountryList());
@@ -157,16 +157,17 @@ public class BackController {
 	 * @param mainImageFile
 	 * @return
 	 */
-	@RequestMapping(value = "video/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/videos/new", method = RequestMethod.POST)
 	public String viewNew(Model model, String name, String nameCn, Integer videoTypeId, Integer countryId,
 			Integer companyId, String director, String actor, Integer season, Integer episode, Integer jf,
-			Integer vipLevel, Integer[] languageArr, Integer[] subtitleArr, Integer[] videoMillTypeArr, Integer start,
-			Integer weight, String desc, @RequestParam("mainImageFile") CommonsMultipartFile mainImageFile)
-			throws Exception {
+			Integer vipLevel, String title, Integer[] languageArr, Integer[] subtitleArr, Integer[] videoMillTypeArr,
+			Integer start, Integer weight, String desc,
+			@RequestParam("mainImageFile") CommonsMultipartFile mainImageFile) throws Exception {
 
 		Video video = new Video();
 		video.setName(name.toLowerCase());
-		video.setNameCn(nameCn);
+		video.setTitle(title);
+		video.setNameCn(new StringBuffer(title).append(" ").append("第").append(season).append("季").toString());
 		video.setType(videoTypeId);
 		video.setCountryId(countryId);
 		video.setCompanyId(companyId);
@@ -203,10 +204,10 @@ public class BackController {
 		System.out.println(name);
 
 		// TODO//ubunt
-		return "redirect:/back/video/new";
+		return "redirect:/back/videos/?code=202";
 	}
 
-	@RequestMapping(value = "product", method = RequestMethod.GET)
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String product(Model model) {
 		List<Product> products = productService.products();
 		List<ProductListVo> productListVos = Lists.newArrayList();
@@ -223,7 +224,7 @@ public class BackController {
 		return false;
 	}
 
-	@RequestMapping(value = "user", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/", method = RequestMethod.GET)
 	public String user(Model model) {
 		List<User> userList = userService.userList();
 		List<UserListVo> userVoList = Lists.newArrayList();
@@ -238,7 +239,7 @@ public class BackController {
 		return view("user");
 	}
 
-	@RequestMapping(value = "product/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
 	public String productDetail(Model model, @PathVariable("id") int productId) {
 		Product product = productService.getProductById(productId);
 		model.addAttribute("product", product);
@@ -252,7 +253,7 @@ public class BackController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "user/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	public String userDetail(Model model, @PathVariable("id") int userId) {
 		// pon..dmvldkj
 		User user = userService.getUserByUserId(userId);
@@ -260,7 +261,7 @@ public class BackController {
 		return view("user_detail");
 	}
 
-	@RequestMapping("video/list")
+	@RequestMapping("/videos/")
 	public String videoList(Model model) {
 		List<VideoListVo> videoListVos = videoService.getVideoList();
 		model.addAttribute("videoVos", videoListVos);
@@ -268,11 +269,35 @@ public class BackController {
 
 	}
 
-	@RequestMapping("video/{videoName}/next_{type}")
-	public String videoNextAdd(Model model, @PathVariable("type") int type,
-			@PathVariable("videoName") String videoName) {
-       Video nextVideo=videoService.getNextVideoToNameAndType(videoName, type);
-		return "";
+	@RequestMapping("/videos/quickAdd")
+	public String videoNextAdd(Model model, int videoType, String videoName) {
+		Video nextVideo = videoService.getNextVideoToNameAndType(videoName, videoType);
+		model.addAttribute("video", nextVideo);
+		// 所属国家
+		model.addAttribute("countrys", videoService.getCountryList());
+		// 影片语言 字幕语言
+		model.addAttribute("languages", videoService.getLanguageList());
+		// 视频初品公司
+		model.addAttribute("companys", videoService.getCompanyList());
+		// 视频大类
+		model.addAttribute("videoTypes", videoService.getVideoTypeList());
+		// 视频小类
+		model.addAttribute("videoMillTypes", videoService.getVideoMillTypeList());
+		return view("video_quick_add");
+
+	}
+
+	/**
+	 * 根据主键删除视频
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/videos/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public boolean del(@PathVariable("id") long id) {
+
+		return videoService.delete(id);
 
 	}
 

@@ -51,12 +51,13 @@
 		<result column="country_id" property="countryId" />
 		<result column="start" property="start" />
 		<result column="status" property="status" />
-		<result column="weight" property="weight " />
+		<result column="weight" property="weight" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
 		<result column="desc" property="desc" />
 		<association property="videoType" javaType="com.wapple.pojo.VideoType">
-			<result column="" />
+			<result column="type_name" property="name" />
+			<result column="type_name_cn" property="nameCn" />
 		</association>
 	</resultMap>
 
@@ -135,8 +136,31 @@
 	</select>
 
 	<select id="countVideoByNameAndType" resultType="int">
-		SELECT COUNT(1) FROM
+		SELECT COUNT(1)
+		FROM
 		t_video WHERE `name`=#{name} AND `type`=#{type}
+	</select>
+
+	<select id="queryVideoListByParams" resultType="com.wapple.pojo.VideoList">
+		SELECT
+		v.`id`,
+		v.`name`,
+		v.`name_cn` nameCn,
+		v.`season`,
+		v.`type`,
+		v.`m_type_s` mtypes,
+		t.`name` tname,
+		v.`main_image` image
+		FROM
+		t_video v
+		left join t_video_type t
+		on v.type=t.id
+
+
+		<if test="params.limit!=null and params.offset!=null">
+			limit #{params.limit},#{params.offset}
+		</if>
+
 	</select>
 
 	<select id="queryVideoByParams" resultMap="videoMap">
@@ -188,4 +212,27 @@
 
 	</select>
 
+	<delete id="del">
+		DELETE FROM t_video where id=#{id}
+	</delete>
+
+	<select id="queryCountryNameCnById" resultType="string">
+		select name_cn
+		from t_country where id=#{id}
+	</select>
+
+	<select id="queryLanNameCnById" resultType="string">
+		SELECT name_cn FROM
+		t_language where id=#{id}
+	</select>
+
+	<select id="queryCompanyNameCnById" resultType="string">
+		SELECT name_cn
+		FROM t_company
+		WHERE id=#{id}
+	</select>
+	<select id="querySeasonListByVideoName" resultType="int">
+		select season from t_video where name=#{name}
+	</select>
+   
 </mapper>

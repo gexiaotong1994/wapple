@@ -10,8 +10,9 @@ import lombok.Data;
 public class VideoParams {
 	
 	private String name;
-	private int season;
+	private Integer season;
 	private VideoType videoType;
+   
 	
 	
 

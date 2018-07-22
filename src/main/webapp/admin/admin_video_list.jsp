@@ -37,10 +37,10 @@
                                  <td><a href="${v.id}">${v.nameCn}</a></td>
                                  <td>${v.mtypeStr}</td>
                                  <td>${v.url}</td>
-                                 <td><a href="${v.name}/next_${v.type}">link</a></td>
+                                 <td><a href="quickAdd?videoName=${v.name}&videoType=${v.type}">快速添加系列</a></td>
                                  <td>
                                   <div class="btn-group">
-                                      <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                                      <a class="btn btn-danger" href="javascript:del(${v.id });"><i class="icon_close_alt2"></i></a>
                                   </div>
                                   </td>
                               </tr> 
@@ -57,20 +57,31 @@
 	</section>
 
 
+<%@include file="/admin/public/footer-script.jsp"%>
 
-	<script src="/admin/js/jquery.js"></script>
-	<script src="/admin/js/bootstrap.min.js"></script>
-	<!-- nice scroll -->
-	<script src="/admin/js/jquery.scrollTo.min.js"></script>
-	<script src="/admin/js/jquery.nicescroll.js" type="text/javascript"></script>
-	<!-- jquery knob -->
-	<!--custome script for all page-->
-	<script src="/admin/js/scripts.js"></script>
-
-   <script>
 	
-		$(".knob").knob();
-	</script>
+<script type="text/javascript">
+       function del(id){
+    	  var r=confirm("确认删除["+id+"]?");
+    	   if(r){
+    		  $.ajax({
+    			  url:id,
+    			  type:"delete",
+    			  dataType:"json",
+    			  success:function(json){
+    				  if(json){
+    					  alert("删除["+id+"]成功!");
+    					  location.reload();
+    				  }else{
+    					  alert("删除["+id+"]失败!");
+    				  }
+    			  }
+    			  
+    		  });
+    	   }
+       }
 
+
+</script>
 </body>
 </html>
